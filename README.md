@@ -4,7 +4,7 @@ STARS: stellar TDEs (tidal disruption events) with abundances and realistic stru
 
 ## installation:
 
-`git clone https://github.com/jamielaw-smith/STARS-library.git`
+`git clone https://github.com/jamielaw-smith/STARS_library.git`
 
 then
 
