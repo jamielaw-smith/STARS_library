@@ -21,20 +21,20 @@ Mhbase = 1.0e6 * M_SUN_CGS  # this is the generic size of bh used
 NUM_INTERP_POINTS = 100
 
 dmdtsmalldirs = [
-'m0.3_p1/',
-'m0.3_p11/',
+'m0.3_t0.0/',
+'m0.3_10.0/',
 'm0.5_t0.0/',
-'m0.5_p38/',
-'m0.7_p50/',
-'m1.0_p1/',
-'m1.0_p10/',
-'m1.0_p16/',
+'m0.5_t10.0/',
+'m0.7_t10.0/',
+'m1.0_t0.0/',
+'m1.0_t4.8/',
+'m1.0_t8.4/',
 'm3.0_t0.0/',
-'m3.0_p16/',
+'m3.0_t0.3/',
 ]
 
-dmdtbigdir = '/Users/lawsmith/Dropbox/1e6-grid/local_results/data-dmdts/'
-savebigdir = '/Users/lawsmith/Dropbox/1e6-grid/local_results/interpolated_dmdts/'
+dmdtbigdir = '../input/'
+savebigdir = '../output/'
 
 for dmdtsmalldir in dmdtsmalldirs:
     dmdtdir = dmdtbigdir + dmdtsmalldir
