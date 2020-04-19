@@ -13,6 +13,10 @@ import numpy as np
 from scipy.interpolate import interp1d
 import matplotlib.pyplot as plt
 
+import time as tm
+start_time = tm.time()
+
+
 C_CGS = c.c.cgs.value
 FOUR_PI = 4*np.pi
 M_SUN_CGS = c.M_sun.cgs.value
@@ -299,3 +303,7 @@ for z, low_interp_beta_file in enumerate(lo_interp_beta_files):
             np.savetxt(savebigdir + savesmalldir + beta_string + '.dat', 
                     np.transpose([np.concatenate([timeinterpolated[0], timeinterpolated[1]]), 
                     np.concatenate([dmdtinterpolated[0], dmdtinterpolated[1]])]))
+
+stop_time = tm.time()
+duration = stop_time - start_time
+print("\n\nExecution: %s [sec]" % duration)
