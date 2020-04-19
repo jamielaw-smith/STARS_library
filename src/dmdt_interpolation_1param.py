@@ -10,6 +10,11 @@ import numpy as np
 from scipy.interpolate import interp1d
 import matplotlib.pyplot as plt
 
+
+import time as tm
+start_time = tm.time()
+
+
 C_CGS = c.c.cgs.value
 FOUR_PI = 4*np.pi
 M_SUN_CGS = c.M_sun.cgs.value
@@ -22,7 +27,7 @@ NUM_INTERP_POINTS = 100
 
 dmdtsmalldirs = [
 'm0.3_t0.0/',
-'m0.3_10.0/',
+'m0.3_t10.0/',
 'm0.5_t0.0/',
 'm0.5_t10.0/',
 'm0.7_t10.0/',
@@ -234,3 +239,7 @@ for dmdtsmalldir in dmdtsmalldirs:
             #print(np.shape(dmdtinterpolated, dmdtinterpolated[0]))
             np.savetxt(savebigdir + dmdtsmalldir + '{0:f}'.format(beta_arr[i])[:5]+ '.dat', np.transpose([np.concatenate([timeinterpolated[0], timeinterpolated[1]]),
                         np.concatenate([dmdtinterpolated[0], dmdtinterpolated[1]])]))
+
+stop_time = tm.time()
+duration = stop_time - start_time
+print("\n\nExecution: %s [sec]" % duration)
