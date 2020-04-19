@@ -26,24 +26,24 @@ Mhbase = 1.0e6 * M_SUN_CGS  # this is the generic size of bh used
 # USER INPUTS
 NUM_MASS_INTERP_POINTS = 11
 
-#only one age at a time, only between two ages for now, for a given mass
+#only between two ages at a time for now, for a given mass
 dmdtsmalldirs = [
-#'m0.3_t0.0/', 
-#'m0.3_t1.0/',
-#'m0.5_t0.0/', 
-#'m0.5_t1.0/', 
-#'m0.7_p50/', 
-#'m1.0_t0.0/', 
-#m1.0_t0.57/', 
-#'m1.0_t1.0/', 
-'m3.0_t0.0/',
-'m3.0_t1.0/'
+'m0.3_t0.0/',
+'m0.3_t10.0/',
+#'m0.5_t0.0/',
+#'m0.5_t10.0/',
+#'m0.7_t10.0/',
+#'m1.0_t0.0/',
+#'m1.0_t4.8/',
+#'m1.0_t8.4/',
+#'m3.0_t0.0/',
+#'m3.0_t0.3/',
 ]
 
 mass_string = dmdtsmalldirs[0][:4] #'m0.3'
 
-dmdtbigdir = '/Users/lawsmith/Dropbox/1e6-grid/local_results/data-dmdts/'
-savebigdir = '/Users/lawsmith/Dropbox/1e6-grid/local_results/interpolated_dmdts/'
+dmdtbigdir = '../input/'
+savebigdir = '../output/'
 
 
 # --------- GET SIMULATION BETAS -----------------
