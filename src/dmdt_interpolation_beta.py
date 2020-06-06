@@ -1,8 +1,5 @@
-"""Initialize module.
-Loads and interpolates tde simulation data. Simulation data is
-from Guillochon 2013 and can be found on astrocrash.net.
-The files in data directory have been converted from dm/dt space
-to dm/de space.
+"""
+script from Brenna
 """
 import os
 import astropy.constants as c
