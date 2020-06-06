@@ -29,8 +29,11 @@ G = c.G.cgs.value  # 6.67259e-8 cm3 g-1 s-2
 Mhbase = 1.0e6 * M_SUN_CGS  # this is the generic size of bh used
 
 # USER INPUTS
-NUM_AGE_INTERP_POINTS = 11
+# NUM_AGE_INTERP_POINTS = 11
+NUM_AGE_INTERP_POINTS = 5
 
+
+model_directories_by_mass = {}
 # model_directories_by_mass = {
 #     "m0.3":["t0.0", "t1.0"],
 #     "m0.5":["t0.0", "t1.0"],
@@ -43,12 +46,8 @@ model_dir_formatter = "{}_{}"
 dmdt_input_dir = '../input/'
 output_dir = '../output/'
 
-
-
+# Dynamically grab all interpolated mass dirs
 all_sub_dirs = [name for name in os.listdir(output_dir) if os.path.isdir(os.path.join(output_dir, name))]
-
-model_directories_by_mass = {}
-
 for sub_dir in all_sub_dirs:
     mass_str = sub_dir.split("_")[0]
 
@@ -59,10 +58,7 @@ for sub_dir in all_sub_dirs:
             model_directories_by_mass[mass_str] = ["t0.0", "t0.57", "t1.0"]
 
 
-
-
-
-
+# Iterate over all mass entries and do the age interpolation
 for mass_string, age_steps in  model_directories_by_mass.items():
     for t1, t2 in zip(age_steps[:-1], age_steps[1:]):
 
@@ -79,8 +75,9 @@ for mass_string, age_steps in  model_directories_by_mass.items():
         a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
         a.sort()
         # this will select 11 betas from lowest to highest. spaced by log from logsapce
-        lo_interp_beta_files = a[::10]
-        lo_interp_beta_files.append(a[-1])
+        # lo_interp_beta_files = a[::10]
+        # lo_interp_beta_files.append(a[-1])
+        lo_interp_beta_files = a
         lo_interp_betas = [float(b[:-4]) for b in lo_interp_beta_files]
 
         Sim_age = [float(f.split('t')[1].split('/')[0]) for f in dmdt_sub_dirs]
@@ -147,8 +144,9 @@ for mass_string, age_steps in  model_directories_by_mass.items():
                 a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
                 a.sort()
                 # this will select 11 betas from lowest to highest. spaced by log from logsapce
-                hi_interp_beta_files = a[::10]
-                hi_interp_beta_files.append(a[-1])
+                # hi_interp_beta_files = a[::10]
+                # hi_interp_beta_files.append(a[-1])
+                hi_interp_beta_files = a
                 hi_interp_betas = [float(b[:-4]) for b in hi_interp_beta_files]
                 #hi_sim_betas = [float(b[:-4]) for b in hi_sim_beta_files]
 

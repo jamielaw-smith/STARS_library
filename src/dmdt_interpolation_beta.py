@@ -20,7 +20,8 @@ G = c.G.cgs.value  # 6.67259e-8 cm3 g-1 s-2
 Mhbase = 1.0e6 * M_SUN_CGS  # this is the generic size of bh used
 
 # USER INPUTS
-NUM_INTERP_POINTS = 100
+# NUM_INTERP_POINTS = 100
+NUM_INTERP_POINTS = 10
 
 dmdt_sub_dirs = [
 'm0.3_t0.0/',

@@ -24,7 +24,8 @@ G = c.G.cgs.value  # 6.67259e-8 cm3 g-1 s-2
 Mhbase = 1.0e6 * M_SUN_CGS  # this is the generic size of bh used
 
 # USER INPUTS
-NUM_MASS_INTERP_POINTS = 10
+# NUM_MASS_INTERP_POINTS = 10
+NUM_MASS_INTERP_POINTS = 5
 
 model_directories_by_time = {
     "t0.0": ["m0.3", "m0.5", "m0.7", "m1.0", "m3.0"],
@@ -55,8 +56,9 @@ for age_string, mass_steps in  model_directories_by_time.items():
         a.sort()
 
         # this will select 11 betas from lowest to highest. spaced by log from logsapce
-        lo_interp_beta_files = a[::10]
-        lo_interp_beta_files.append(a[-1])
+        # lo_interp_beta_files = a[::10]
+        # lo_interp_beta_files.append(a[-1])
+        lo_interp_beta_files = a
         lo_interp_betas = [float(b[:-4]) for b in lo_interp_beta_files]
 
 
@@ -110,8 +112,9 @@ for age_string, mass_steps in  model_directories_by_time.items():
                 a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
                 a.sort()
                 # this will select 11 betas from lowest to highest. spaced by log from logsapce
-                hi_interp_beta_files = a[::10]
-                hi_interp_beta_files.append(a[-1])
+                # hi_interp_beta_files = a[::10]
+                # hi_interp_beta_files.append(a[-1])
+                hi_interp_beta_files = a
                 hi_interp_betas = [float(b[:-4]) for b in hi_interp_beta_files]
 
 
