@@ -32,13 +32,11 @@ model_directories_by_time = {
 }
 
 model_dir_formatter = "{}_{}"
-
 dmdt_input_dir = '../input/'
 output_dir = '../output/'
 
 
 for age_string, mass_steps in  model_directories_by_time.items():
-
     for m1, m2 in zip(mass_steps[:-1], mass_steps[1:]):
 
         print("Processing: [%s, %s] for time %s" % (m1, m2, age_string))
