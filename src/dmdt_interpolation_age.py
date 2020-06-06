@@ -15,6 +15,8 @@ import astropy.constants as c
 import numpy as np
 from scipy.interpolate import interp1d
 import matplotlib.pyplot as plt
+import glob
+import os
 
 import time as tm
 start_time = tm.time()
@@ -29,17 +31,36 @@ Mhbase = 1.0e6 * M_SUN_CGS  # this is the generic size of bh used
 # USER INPUTS
 NUM_AGE_INTERP_POINTS = 11
 
-model_directories_by_mass = {
-    "m0.3":["t0.0", "t1.0"],
-    "m0.5":["t0.0", "t1.0"],
-    "m0.7":["t0.0", "t1.0"],
-    "m1.0":["t0.0", "t0.57", "t1.0"],
-    "m3.0":["t0.0", "t1.0"]
-}
+# model_directories_by_mass = {
+#     "m0.3":["t0.0", "t1.0"],
+#     "m0.5":["t0.0", "t1.0"],
+#     "m0.7":["t0.0", "t1.0"],
+#     "m1.0":["t0.0", "t0.57", "t1.0"],
+#     "m3.0":["t0.0", "t1.0"]
+# }
 
 model_dir_formatter = "{}_{}"
 dmdt_input_dir = '../input/'
 output_dir = '../output/'
+
+
+
+all_sub_dirs = [name for name in os.listdir(output_dir) if os.path.isdir(os.path.join(output_dir, name))]
+
+model_directories_by_mass = {}
+
+for sub_dir in all_sub_dirs:
+    mass_str = sub_dir.split("_")[0]
+
+    if mass_str not in model_directories_by_mass:
+        if mass_str != "m1.0":
+            model_directories_by_mass[mass_str] = ["t0.0", "t1.0"]
+        else:
+            model_directories_by_mass[mass_str] = ["t0.0", "t0.57", "t1.0"]
+
+
+
+
 
 
 for mass_string, age_steps in  model_directories_by_mass.items():
