@@ -28,14 +28,15 @@ NUM_MASS_INTERP_POINTS = 11
 
 #only between two ages at a time for now, for a given mass
 dmdtsmalldirs = [
-'m0.3_t0.0/',
-'m0.3_t1.0/',
+#'m0.3_t0.0/',
+#'m0.3_t1.0/',
 #'m0.5_t0.0/',
 #'m0.5_t1.0/',
+#'m0.7_t0.0/',
 #'m0.7_t1.0/',
-#'m1.0_t0.0/',
-#'m1.0_t0.57/',
-#'m1.0_t1.0/',
+'m1.0_t0.0/',
+'m1.0_t0.57/',
+'m1.0_t1.0/',
 #'m3.0_t0.0/',
 #'m3.0_t1.0/',
 ]

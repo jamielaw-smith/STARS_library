@@ -27,7 +27,7 @@ Mhbase = 1.0e6 * M_SUN_CGS  # this is the generic size of bh used
 NUM_MASS_INTERP_POINTS = 10
 
 model_directories_by_time = {
-    "t0.0": ["m0.3", "m0.5", "m1.0", "m3.0"],
+    "t0.0": ["m0.3", "m0.5", "m0.7", "m1.0", "m3.0"],
     "t1.0": ["m0.3", "m0.5", "m0.7", "m1.0", "m3.0"],
 }
 
