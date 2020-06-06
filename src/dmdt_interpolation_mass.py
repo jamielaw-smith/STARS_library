@@ -32,7 +32,6 @@ output_dir = '../output/'
 
 model_directories_by_time = {
     ("t0.0", "t0.0"): ["m0.3", "m0.5", "m1.0", "m3.0"],
-
     ("t1.0", "t1.0"): ["m0.3", "m0.5", "m0.7", "m1.0", "m3.0"],
 }
 
@@ -74,6 +73,7 @@ for t, mass_list in model_directories_by_time.items():
         m1_output_subdir = output_dir_formatter.format(output_dir, model_dir_formatter.format(m1, t1))
         a = [f for f in os.listdir(m1_output_subdir) if not f.startswith('.')]
         a.sort()
+
         lo_interp_beta_files = a[::10]
         lo_interp_beta_files.append(a[-1])
         lo_interp_betas = [float(b[:-4]) for b in lo_interp_beta_files]
