@@ -30,16 +30,15 @@ age_string = 't0.0' #'t1.0'
 
 #only between two masses at a time for now, for a given age
 dmdt_sub_dirs = [
-'m0.3_t0.0/',
-#'m0.3_t10.0/',
-'m0.5_t0.0/',
-#'m0.5_t10.0/',
-#'m0.7_t10.0/',
-#'m1.0_t0.0/',
-#'m1.0_t4.8/',
-#'m1.0_t8.4/',
-#'m3.0_t0.0/',
-#'m3.0_t0.3/',
+# 'm0.3_t0.0/',
+#'m0.3_t1.0/',
+# 'm0.5_t0.0/',
+#'m0.5_t1.0/',
+#'m0.7_t1.0/',
+'m1.0_t0.0/',
+#'m1.0_t1.0/',
+'m3.0_t0.0/',
+#'m3.0_t1.0/',
 ]
 
 dmdt_input_dir = '../input/'
@@ -62,7 +61,8 @@ lo_interp_betas = [float(b[:-4]) for b in lo_interp_beta_files]
 
 
 Sim_mass = [float(f[1:4]) for f in dmdt_sub_dirs]
-mass_arr = np.logspace(np.log10(Sim_mass[0]), np.log10(Sim_mass[-1]), num=NUM_MASS_INTERP_POINTS)
+# mass_arr = np.logspace(np.log10(Sim_mass[0]), np.log10(Sim_mass[-1]), num=NUM_MASS_INTERP_POINTS)
+mass_arr = np.linspace(Sim_mass[0], Sim_mass[-1], num=NUM_MASS_INTERP_POINTS)
 
 for z, low_interp_beta_file in enumerate(lo_interp_beta_files):
     # ------ DIRECTORY PARAMETERS -------
