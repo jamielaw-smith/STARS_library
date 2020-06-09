@@ -51,8 +51,6 @@ for dmdt_sub_dir in dmdt_sub_dirs:
 
     # It is assumed that there are different files for each beta
     # (such as 2.500.dat for beta = 2.5)
-    # The first row is energy, the second is dmde.
-
 
     # dictionaries with gamma's as keys.
     Beta_slope = [] # {gammas[0]: [], gammas[1]: []}
