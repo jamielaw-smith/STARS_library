@@ -19,6 +19,7 @@ M_SUN_CGS = c.M_sun.cgs.value
 G = c.G.cgs.value  # 6.67259e-8 cm3 g-1 s-2
 Mhbase = 1.0e6 * M_SUN_CGS  # this is the generic size of bh used
 
+"""
 # USER INPUTS
 # NUM_INTERP_POINTS = 100
 NUM_INTERP_POINTS = 10
@@ -39,6 +40,9 @@ dmdt_sub_dirs = [
 
 dmdt_input_dir = '../input/'
 output_dir = '../output/'
+"""
+
+exec(open('input_beta.par').read())
 
 for dmdt_sub_dir in dmdt_sub_dirs:
     current_dmdt_dir = dmdt_input_dir + dmdt_sub_dir
