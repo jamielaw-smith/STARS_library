@@ -10,18 +10,15 @@ import os
 import astropy.constants as c
 import numpy as np
 from scipy.interpolate import interp1d
-import matplotlib.pyplot as plt
 
 import time as tm
 start_time = tm.time()
-
 
 C_CGS = c.c.cgs.value
 FOUR_PI = 4*np.pi
 M_SUN_CGS = c.M_sun.cgs.value
 
 G = c.G.cgs.value  # 6.67259e-8 cm3 g-1 s-2
-Mhbase = 1.0e6 * M_SUN_CGS  # this is the generic size of bh used
 
 # USER INPUTS
 # NUM_MASS_INTERP_POINTS = 10

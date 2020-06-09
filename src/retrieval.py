@@ -8,21 +8,13 @@ import os
 import numpy as np
 from scipy.interpolate import interp1d
 
-
-
-
-
-
-## try to define an interpolation function to call above
-def interpolate_beta():
-    print('here')
-    print(outputdir)
-    dmdt_sub_dir = 'm0.925_t0.0/'
-
-    dmdt_input_dir = '../output/'
-    output_dir = '../retrieval_scratch/'
-
-
+def interpolate_beta(
+    dmdt_input_dir = '../output/',
+    dmdt_sub_dir = 'm0.925_t0.0/',
+    output_dir = '../retrieval_scratch/',
+    sim_beta_files = ['1.032.dat', '1.137.dat'], 
+    beta_arr = np.array([1.1])):
+    
     current_dmdt_dir = dmdt_input_dir + dmdt_sub_dir
 
     # dictionaries with gamma's as keys.
@@ -37,13 +29,7 @@ def interpolate_beta():
 
 
     # --------- GET SIMULATION BETAS -----------------
-
-    #sim_beta_files = [betadirs[i-1], betadirs[i]]
-    sim_beta_files = ['1.032.dat', '1.137.dat']
-
     Sim_beta = [float(b[:-4]) for b in sim_beta_files]
-
-    beta_arr = np.array([1.1])
 
     # ----- CREATE INTERPOLATION FUNCTIONS; FIND SLOPES & YINTERs -----
     time = {}
@@ -220,14 +206,9 @@ def interpolate_beta():
 
 
 
-
-
-
-
-
 inputs = [
 #mass,     age,    beta
-[0.925,    0.0,    1.1]
+[0.925,    0.44,    0.99]
 ]
 
 #for row in inputs:
@@ -283,7 +264,13 @@ for outputdir in outputdirs:
                         print('b > beta')
                         print(i-1, i)
                         print(betadirs[i-1], betadirs[i])
-                        interpolate_beta()
+                        print('INTERPOLATE_BETA')
+                        interpolate_beta(
+                            dmdt_input_dir = '../output/',
+                            dmdt_sub_dir = outputdir + '/',
+                            output_dir = '../retrieval_scratch/',
+                            sim_beta_files = [betadirs[i-1], betadirs[i]], 
+                            beta_arr = np.array([beta]))   
                         break
 
 
@@ -294,19 +281,21 @@ if (found_mass == True) & (found_age == True) & (found_beta == True):
     exit()
 
 if (found_mass == True) & (found_age == True) & (found_beta == False):
-    print('Found mass, age, not beta.')
-    ## interpolate in beta between 2 closest betas
-    
-    #find closest 2 betas
-
-    #call dmdt_interpolation_beta.py
-    
-    #create new outputs in ../retrieval_scratch/
-
+    print('Found mass, age, not beta, handled above.')
+    exit()
 
 if (found_mass == True) & (found_age == False) & (found_beta == False):
     print('Found mass, not age or beta.')
     ## first, at the given mass, interpolate in age between the 2 closest ages
+    interpolate_age()
+
+    or rather
+
+    interpolate_1d(
+        mass=True)
+
+
+
     ## then interpolate in beta between 2 closest betas as above
     # (check if already have beta)
 
