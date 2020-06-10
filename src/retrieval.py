@@ -7,6 +7,7 @@ I think we want to implement this as a quick 3D interpolation for each row in th
 import os
 import numpy as np
 from scipy.interpolate import interp1d
+import shutil
 
 def interpolate_beta(
     dmdt_input_dir = '../output/',
@@ -717,7 +718,8 @@ def interpolate_age(
 inputs = [
 #mass,     age,    beta
 #[0.31,    0.0,    0.99]
-[0.31,    0.44,    0.99]
+#[0.31,    0.44,    0.99]
+[0.31,    0.44,    0.918]
 ]
 
 #for row in inputs:
@@ -728,17 +730,36 @@ mass = row[0]
 age = row[1]
 beta = row[2]
 
+# todo have some check for whether any of the masses are below the lowest mass in interpolated grid. also if age is outside of [0,1]
+
+
 # look if mass is already in output
 outputdirs = os.listdir('../output/')
-outputdirs.sort()
+outputdirs = np.array(outputdirs)
+outputdirs = outputdirs[np.where(outputdirs != '.DS_Store')]
+
+# sort outputdirs based on mass. just outputdirs.sort() doesn't work
+m_array = []
+for i, outputdir in enumerate(outputdirs):
+    m_array.append(float(outputdir.split('_')[0][1:]))
+
+outputdirs = [x for _,x in sorted(zip(m_array,outputdirs))]
+print(outputdirs)
+
 
 found_mass = False
 found_age = False
 found_beta = False
 
-for outputdir in outputdirs:
-    if outputdir == '.DS_Store':
-        continue
+beta_lo = np.nan
+beta_hi = np.nan
+age_lo = np.nan
+age_hi = np.nan
+mass_lo = np.nan
+mass_hi = np.nan
+
+# find closest neighbors, check if we alreay have anything
+for i, outputdir in enumerate(outputdirs):
 
     m = float(outputdir.split('_')[0][1:])
     t = float(outputdir.split('_')[1][1:])
@@ -753,36 +774,51 @@ for outputdir in outputdirs:
 
             betadirs = os.listdir('../output/'+outputdir)
             betadirs.sort()
-            for betadir in betadirs:
+
+            for k, betadir in enumerate(betadirs):
                 b = float(betadir.split('.dat')[0])
-                if b == beta:
+
+                if (k==1) & (b > beta):
+                    print('ERROR: Requested beta below lowest beta for this stellar mass and age.\
+                         Lowest beta is:')
+                    print(b)
+                    exit()
+
+                elif b == beta:
                     print('already have this beta')
                     found_beta = True
 
                     print('Your requested dM/dt is here:')
                     print('../output/' + outputdir + '/' + betadir)
-
                     break
 
-            if found_beta == False:
-                for i, betadir in enumerate(betadirs):
-                    b = float(betadir.split('.dat')[0])
-                    if b < beta:
-                        print('b < beta')
-                    elif b > beta:
-                        print('b > beta')
-                        print(i-1, i)
-                        print(betadirs[i-1], betadirs[i])
-                        print('INTERPOLATE_BETA')
-                        interpolate_beta(
-                            dmdt_input_dir = '../output/',
-                            dmdt_sub_dir = outputdir + '/',
-                            output_dir = '../retrieval_scratch/',
-                            sim_beta_files = [betadirs[i-1], betadirs[i]], 
-                            beta_arr = np.array([beta]))   
-                        break
+                elif b > beta:
+                    print('b > beta')
+                    print(k-1, k)
+                    print(betadirs[k-1], betadirs[k])
+                    beta_lo = betadirs[k-1]
+                    beta_hi = betadirs[k]
+                    break
 
+        elif t > age:
+            print('t > age')
+            print(i-1, i)
+            print(outputdirs[i-1], outputdirs[i])
+            age_lo = float(outputdirs[i-1].split('_')[1][1:])
+            age_hi = float(outputdirs[i].split('_')[1][1:])
+            break
 
+    elif m > mass:
+        print('m > mass')
+        print(i-1, i)
+        print(outputdirs[i-1], outputdirs[i])
+        mass_lo = float(outputdirs[i-1].split('_')[0][1:])
+        mass_hi = float(outputdirs[i].split('_')[0][1:])
+        break
+
+print(mass_lo, mass_hi)
+print(age_lo, age_hi)
+print(beta_lo, beta_hi)
 
 
 if (found_mass == True) & (found_age == True) & (found_beta == True):
@@ -809,7 +845,7 @@ if (found_mass == False) & (found_age == False) & (found_beta == False):
     # at what age(s)?
     # t0.0 and t1.0?
     # or the closest existing ages from first interpolation, like t0.2 and t0.3?
-
+    print('INTERPOLATE MASS')
     interpolate_mass(
         model_dir_formatter = "{}_{}",
         dmdt_input_dir = '../output/',
@@ -819,36 +855,48 @@ if (found_mass == False) & (found_age == False) & (found_beta == False):
         mass_arr = np.array([mass]),
         )
 
+    # check if already have age
+    newdirs = os.listdir('../retrieval_scratch/')
+    print(newdirs)
+    if 'm' + str(mass) + '_' + 't' + str(age) not in newdirs:
+        # don't already have age
+        ## second, interpolate in age between the 2 closest ages as above
+        print('INTERPOLATE AGE')
+        interpolate_age(
+            model_dir_formatter = "{}_{}",
+            dmdt_input_dir = '../retrieval_scratch/',   # hmm TODO this should change depending if we have mass or not
+            output_dir = '../retrieval_scratch/',
+            mass_string = 'm' + str(mass),
+            age_steps = ['t0.0', 't1.0'],
+            age_arr = np.array([age]),
+            )
 
-    # (check if already have age)
+    # check if already have beta
+    betadirs = os.listdir('../retrieval_scratch/' + 'm' + str(mass) + '_' + 't' + str(age) + '/')
+    if str(round(beta, 4)).ljust(5, '0') + '.dat' in betadirs:
+        # copy existing beta to retrieval
+        if not os.path.exists('../retrieval/' + 'm' + str(mass) + '_' + 't' + str(age)):
+            os.makedirs('../retrieval/' + 'm' + str(mass) + '_' + 't' + str(age))
 
-    ## second, interpolate in age between the 2 closest ages as above
-    interpolate_age(
-        model_dir_formatter = "{}_{}",
-        dmdt_input_dir = '../retrieval_scratch/',   # hmm TODO this should change depending if we have mass or not
-        output_dir = '../retrieval_scratch/',
-        mass_string = 'm' + str(mass),
-        age_steps = ['t0.0', 't1.0'],
-        age_arr = np.array([age]),
-        )
+        shutil.copyfile('../retrieval_scratch/' + 'm' + str(mass) + '_' + 't' + str(age) + '/' + str(round(beta, 4)).ljust(5, '0') + '.dat',
+                        '../retrieval/' + 'm' + str(mass) + '_' + 't' + str(age) + '/' + str(round(beta, 4)).ljust(5, '0') + '.dat')
 
+    else:    
+        # don't already have beta
+        ## then interpoalte in beta between 2 closest betas as above
+        print('INTERPOLATE BETA')
+        interpolate_beta(
+            dmdt_input_dir = '../retrieval_scratch/',
+            #dmdt_sub_dir = outputdir + '/',
+            dmdt_sub_dir = 'm' + str(mass) + '_' + 't' + str(age) + '/',
+            output_dir = '../retrieval/',
+            #sim_beta_files = [betadirs[i-1], betadirs[i]], 
+            sim_beta_files = ['0.917.dat', '1.025.dat'],
+            beta_arr = np.array([beta])
+            )   
 
-    ## then interpoalte in beta between 2 closest betas as above
-    # (check if already have beta)
-
-    interpolate_beta(
-        dmdt_input_dir = '../retrieval_scratch/',
-        #dmdt_sub_dir = outputdir + '/',
-        dmdt_sub_dir = 'm0.31_t0.44/',
-        output_dir = '../retrieval_scratch/',
-        #sim_beta_files = [betadirs[i-1], betadirs[i]], 
-        sim_beta_files = ['0.917.dat', '1.025.dat'],
-        beta_arr = np.array([beta])
-        )   
-
-
-## return a file(s) in new directory with requested parameters.
-
+# delete scratch directory tree
+shutil.rmtree('../retrieval_scratch/')
 
 
 
