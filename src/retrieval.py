@@ -719,7 +719,7 @@ inputs = [
 #mass,     age,    beta
 #[0.31,    0.0,    0.99]
 #[0.31,    0.44,    0.99]
-[0.31,    0.44,    0.918]
+[0.36,    0.7501,    0.918]
 ]
 
 #for row in inputs:
@@ -744,7 +744,10 @@ for i, outputdir in enumerate(outputdirs):
     m_array.append(float(outputdir.split('_')[0][1:]))
 
 outputdirs = [x for _,x in sorted(zip(m_array,outputdirs))]
-print(outputdirs)
+outputdirs = np.array(outputdirs)
+#print(outputdirs)
+# so that m_array is in same order, for later
+m_array = np.array(sorted(m_array))
 
 # ^ looks like this is already sorted by time for each mass.
 
@@ -780,9 +783,7 @@ for i, outputdir in enumerate(outputdirs):
                 b = float(betadir.split('.dat')[0])
 
                 if (k==1) & (b > beta):
-                    print('ERROR: Requested beta below lowest beta for this stellar mass and age.\
-                         Lowest beta is:')
-                    print(b)
+                    print('ERROR: Requested beta below lowest beta for this stellar mass and age. Lowest beta is:', b)
                     exit()
 
                 elif b == beta:
@@ -809,6 +810,9 @@ for i, outputdir in enumerate(outputdirs):
             print(outputdirs[i-1], outputdirs[i])
             age_lo = float(outputdirs[i-1].split('_')[1][1:])
             age_hi = float(outputdirs[i].split('_')[1][1:])
+
+            # need to find betas here
+
             break
 
     elif m > mass:
@@ -817,13 +821,39 @@ for i, outputdir in enumerate(outputdirs):
         print(outputdirs[i-1], outputdirs[i])
         mass_lo = float(outputdirs[i-1].split('_')[0][1:])
         mass_hi = float(outputdirs[i].split('_')[0][1:])
+
+        # need to find ages here
+        mass_lo_dirs = outputdirs[np.where(m_array == mass_lo)]
+        for k, mld in enumerate(mass_lo_dirs):
+            t = float(mld.split('_')[1][1:])
+            if t == age:
+                print('lower mass and age directory is:', mld)
+                break
+
+            elif t > age:
+                print('lower mass and age directories are:', mass_lo_dirs[k-1], mass_lo_dirs[k])
+                break
+
+        mass_hi_dirs = outputdirs[np.where(m_array == mass_hi)]
+        for k, mhd in enumerate(mass_hi_dirs):
+            t = float(mhd.split('_')[1][1:])
+            if t == age:
+                print('higher mass and age directory is:', mhd)
+                break
+
+            elif t > age:
+                print('higher mass and age directories are:', mass_hi_dirs[k-1], mass_hi_dirs[k])
+                break
+
+
+
         break
 
 print(mass_lo, mass_hi)
 print(age_lo, age_hi)
 print(beta_lo, beta_hi)
 
-
+"""
 if (found_mass == True) & (found_age == True) & (found_beta == True):
     print('We are done.')
     exit()
@@ -901,8 +931,7 @@ if (found_mass == False) & (found_age == False) & (found_beta == False):
 
 # delete scratch directory tree
 shutil.rmtree('../retrieval_scratch/')
-
-
+"""
 
 
 
