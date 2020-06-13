@@ -98,7 +98,7 @@ class STARS_Library:
             self.initialize()
             t2 = tm.time()
 
-            print("... done. [%0.2f sec]" % (t2 - t1))
+            print("... Initialize complete. [%0.2f sec]" % (t2 - t1))
 
 
     def retrieve(self, beta, mass, age):
