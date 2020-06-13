@@ -5,3 +5,4 @@ testarea/
 output/
 retrieval_scratch/
 retrieval/
+src/__pycache__/
