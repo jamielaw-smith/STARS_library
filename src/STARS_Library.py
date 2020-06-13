@@ -78,7 +78,6 @@ class STARS_Library:
             for t1, t2 in zip(age_steps[:-1], age_steps[1:]):
                 age_interpolate(self.output_dir, mass_string, t1, t2, self.num_interp_age)
 
-
     def __init__(self):
 
         self.input_dir = config.get('general_settings', 'input_dir')
@@ -99,7 +98,6 @@ class STARS_Library:
             t2 = tm.time()
 
             print("... Initialize complete. [%0.2f sec]" % (t2 - t1))
-
 
     def retrieve(self, beta, mass, age):
         pass
