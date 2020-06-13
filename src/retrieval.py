@@ -746,6 +746,7 @@ for i, outputdir in enumerate(outputdirs):
 outputdirs = [x for _,x in sorted(zip(m_array,outputdirs))]
 print(outputdirs)
 
+# ^ looks like this is already sorted by time for each mass.
 
 found_mass = False
 found_age = False
@@ -758,7 +759,7 @@ age_hi = np.nan
 mass_lo = np.nan
 mass_hi = np.nan
 
-# find closest neighbors, check if we alreay have anything
+# find closest neighbors, check if we already have anything
 for i, outputdir in enumerate(outputdirs):
 
     m = float(outputdir.split('_')[0][1:])
@@ -799,6 +800,8 @@ for i, outputdir in enumerate(outputdirs):
                     beta_lo = betadirs[k-1]
                     beta_hi = betadirs[k]
                     break
+
+            break
 
         elif t > age:
             print('t > age')
@@ -850,7 +853,8 @@ if (found_mass == False) & (found_age == False) & (found_beta == False):
         model_dir_formatter = "{}_{}",
         dmdt_input_dir = '../output/',
         output_dir = '../retrieval_scratch/',
-        mass_steps = ['m0.3', 'm0.35'],
+        #mass_steps = ['m0.3', 'm0.35'],
+        mass_steps = ['m' + str(mass_lo), 'm' + str(mass_hi)],
         age_strings = ['t0.0', 't1.0'],
         mass_arr = np.array([mass]),
         )
