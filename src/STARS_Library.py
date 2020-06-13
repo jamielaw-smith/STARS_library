@@ -14,12 +14,14 @@ class STARS_Library:
         if parser == None:
             parser = optparse.OptionParser(usage=usage, conflict_handler="resolve")
 
-        parser.add_option('--retrieve', default=(1.0, 0.0, 1.0), nargs=3, type='float', help='Tuple to retrieve model: {mass} {age} {beta}. DEFAULT=(1.0, 0.0, 1.0)')
+        parser.add_option('--retrieve', default=(1.0, 0.0, 1.0), nargs=3, type='float',
+                          help='Tuple to retrieve model: {mass} {age} {beta}. DEFAULT=(1.0, 0.0, 1.0)')
 
         return (parser)
 
     def initialize(self):
 
+        ## BETA INTERPOLATION ##
         all_input_subdirs = [name for name in os.listdir(self.input_dir)
                              if os.path.isdir(os.path.join(self.input_dir, name))]
 
@@ -27,6 +29,7 @@ class STARS_Library:
             beta_interpolate(self.input_dir, self.output_dir, subdir, self.num_interp_beta)
 
 
+        ## MASS INTERPOLATION ##
         current_output_subdirs = [name for name in os.listdir(self.output_dir)
                              if os.path.isdir(os.path.join(self.output_dir, name))]
 
@@ -61,7 +64,7 @@ class STARS_Library:
                 mass_interpolate(self.input_dir, self.output_dir, age_string, m1, m2, self.num_interp_mass)
 
 
-        # Dynamically grab all interpolated mass dirs
+        ## AGE INTERPOLATION ##
         model_directories_by_mass = {}
         current_output_subdirs = [name for name in os.listdir(self.output_dir)
                                   if os.path.isdir(os.path.join(self.output_dir, name))]
