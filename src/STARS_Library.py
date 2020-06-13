@@ -14,10 +14,7 @@ class STARS_Library:
         if parser == None:
             parser = optparse.OptionParser(usage=usage, conflict_handler="resolve")
 
-        parser.add_option('--retrieve', default=(1.0, 0.0, 1.0), nargs=3, type='float', help='''
-            Tuple to retrieve model with: (mass [Msol; 0.3-3.0], age [fractional; 0-1.0], beta [impact param; 0.0-4.5])
-            DEFAULT=(1.0, 0.0, 1.0)
-        ''')
+        parser.add_option('--retrieve', default=(1.0, 0.0, 1.0), nargs=3, type='float', help='Tuple to retrieve model: {mass} {age} {beta}. DEFAULT=(1.0, 0.0, 1.0)')
 
         return (parser)
 
