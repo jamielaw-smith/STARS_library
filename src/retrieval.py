@@ -762,6 +762,9 @@ age_hi = np.nan
 mass_lo = np.nan
 mass_hi = np.nan
 
+def sort_betas_key(f):
+    return float(f.split('.dat')[0])
+
 # find closest neighbors, check if we already have anything
 for i, outputdir in enumerate(outputdirs):
 
@@ -777,7 +780,7 @@ for i, outputdir in enumerate(outputdirs):
             found_age = True
 
             betadirs = os.listdir('../output/'+outputdir)
-            betadirs.sort()
+            betadirs.sort(key=sort_betas_key)
 
             for k, betadir in enumerate(betadirs):
                 b = float(betadir.split('.dat')[0])

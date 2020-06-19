@@ -3,6 +3,8 @@ import numpy as np
 from scipy.interpolate import interp1d
 from constants import *
 
+def sort_betas_key(f):
+    return float(f.split('.dat')[0])
 
 def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points):
 
@@ -17,7 +19,7 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points):
     Premapdmdt = []
 
     sim_beta_files = os.listdir(current_dmdt_dir)
-    sim_beta_files.sort()
+    sim_beta_files.sort(key=sort_betas_key)
 
     Sim_beta = [float(b[:-4]) for b in sim_beta_files]
     beta_arr = np.logspace(np.log10(Sim_beta[0]), np.log10(Sim_beta[-1]), num=num_interp_points)
@@ -198,12 +200,12 @@ def mass_interpolate(input_dir, output_dir, age_string, m1, m2, num_interp_point
 
     # --------- GET SIMULATION BETAS -----------------
     lo_sim_beta_files = os.listdir(input_dir + dmdt_sub_dirs[0])
-    lo_sim_beta_files.sort()
+    lo_sim_beta_files.sort(key=sort_betas_key)
     lo_sim_betas = [float(b[:-4]) for b in lo_sim_beta_files]
 
     # find lo_interp_beta_files
     a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
-    a.sort()
+    a.sort(key=sort_betas_key)
 
     # this will select 11 betas from lowest to highest. spaced by log from logsapce
     # lo_interp_beta_files = a[::10]
@@ -259,7 +261,7 @@ def mass_interpolate(input_dir, output_dir, age_string, m1, m2, num_interp_point
         # for i in range(1, len(Sim_beta)):
         for i in range(1, len(Sim_mass)):
             a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
-            a.sort()
+            a.sort(key=sort_betas_key)
             # this will select 11 betas from lowest to highest. spaced by log from logsapce
             # hi_interp_beta_files = a[::10]
             # hi_interp_beta_files.append(a[-1])
@@ -426,7 +428,7 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points):
 
     # find lo_interp_beta_files
     a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
-    a.sort()
+    a.sort(key=sort_betas_key)
     # this will select 11 betas from lowest to highest. spaced by log from logsapce
     # lo_interp_beta_files = a[::10]
     # lo_interp_beta_files.append(a[-1])
@@ -494,7 +496,7 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points):
             # hi_sim_beta_files = os.listdir(dmdtbigdir + dmdtsmalldirs[i])
             # hi_sim_beta_files.sort()
             a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
-            a.sort()
+            a.sort(key=sort_betas_key)
             # this will select 11 betas from lowest to highest. spaced by log from logsapce
             # hi_interp_beta_files = a[::10]
             # hi_interp_beta_files.append(a[-1])
