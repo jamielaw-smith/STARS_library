@@ -24,6 +24,8 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, 
 
     Sim_beta = [float(b[:-4]) for b in sim_beta_files]
 
+    print("Processing: betas %s for dir %s" % (Sim_beta, current_dmdt_dir))
+
     if beta_arr == None:
         beta_arr = np.logspace(np.log10(Sim_beta[0]), np.log10(Sim_beta[-1]), num=num_interp_points)
 
@@ -150,9 +152,13 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, 
 
     for i in range(len(beta_arr)):
         if interp_index_high[i] == interp_index_low[i]:
-            time, dmdt = np.genfromtxt(current_dmdt_dir + '{0:f}'.format(beta_arr[i])[:5] + '.dat', skip_header=1, unpack=True)
-            np.savetxt(output_dir + current_sub_dir + '{0:f}'.format(beta_arr[i])[:5] + '.dat',
-                       np.transpose([time, dmdt]))
+            beta_string = '{0:f}'.format(beta_arr[i])[:5]
+
+            time, dmdt = np.genfromtxt(current_dmdt_dir + beta_string + '.dat', skip_header=1, unpack=True)
+
+            file_to_save = output_dir + current_sub_dir + beta_string + '.dat'
+            print("\tSaving %s" % file_to_save)
+            np.savetxt(file_to_save, np.transpose([time, dmdt]))
         else:
 
             dmdtinterpolated = np.array([
@@ -188,10 +194,13 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, 
                      Sim_beta[interp_index_low[i]]))
 
             timeinterpolated = np.array(timeinterpolated)
+            
+            beta_string = '{0:f}'.format(beta_arr[i])[:5]
 
-            #print(np.shape(dmdtinterpolated, dmdtinterpolated[0]))
-            np.savetxt(output_dir + current_sub_dir + '{0:f}'.format(beta_arr[i])[:5] + '.dat', np.transpose([np.concatenate([timeinterpolated[0], timeinterpolated[1]]),
-                                                                                                           np.concatenate([dmdtinterpolated[0], dmdtinterpolated[1]])]))
+            file_to_save = output_dir + current_sub_dir + beta_string + '.dat'
+            print("\tSaving %s" % file_to_save)
+            np.savetxt(file_to_save, np.transpose([np.concatenate([timeinterpolated[0], timeinterpolated[1]]),
+                                                    np.concatenate([dmdtinterpolated[0], dmdtinterpolated[1]])]))
 
 def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_dir=None, mass_arr=None):
 

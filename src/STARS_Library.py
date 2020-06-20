@@ -94,6 +94,7 @@ class STARS_Library:
         self.num_interp_age = int(config.get('interpolation', 'NUM_AGE_INTERP_POINTS'))
 
         # Check if initialized, if not, initialize first
+        # todo fails if ../output/ doesn't exist
         interpolated_subdirs = [name for name in os.listdir(self.output_dir)
                                 if os.path.isdir(os.path.join(self.output_dir, name))]
 
