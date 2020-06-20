@@ -2,6 +2,7 @@ import os
 from configparser import RawConfigParser
 import time as tm
 from stars_interpolation import beta_interpolate, mass_interpolate, age_interpolate
+from retrieval import retrieval
 
 config = RawConfigParser()
 config.read(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'STARS.config')))
@@ -61,7 +62,7 @@ class STARS_Library:
 
         for age_string, mass_steps in model_directories_by_time.items():
             for m1, m2 in zip(mass_steps[:-1], mass_steps[1:]):
-                mass_interpolate(self.input_dir, self.output_dir, age_string, m1, m2, self.num_interp_mass)
+                mass_interpolate(self.output_dir, age_string, m1, m2, self.num_interp_mass)
 
 
         ## AGE INTERPOLATION ##
@@ -102,8 +103,9 @@ class STARS_Library:
 
             print("... Initialize complete. [%0.2f sec]" % (t2 - t1))
 
-    def retrieve(self, beta, mass, age):
-        pass
+    def retrieve(self, mass, age, beta):
+        
+        retrieval(mass, age, beta)
 
 
 if __name__ == "__main__":

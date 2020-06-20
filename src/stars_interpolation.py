@@ -6,7 +6,7 @@ from constants import *
 def sort_betas_key(f):
     return float(f.split('.dat')[0])
 
-def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points):
+def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, sim_beta_files=None, beta_arr=None):
 
     # DC HACK - just trying to preserve original functionality for now
     current_sub_dir = current_sub_dir + "/"
@@ -18,11 +18,14 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points):
     Premaptime = []
     Premapdmdt = []
 
-    sim_beta_files = os.listdir(current_dmdt_dir)
-    sim_beta_files.sort(key=sort_betas_key)
+    if sim_beta_files == None:
+        sim_beta_files = os.listdir(current_dmdt_dir)
+        sim_beta_files.sort(key=sort_betas_key)
 
     Sim_beta = [float(b[:-4]) for b in sim_beta_files]
-    beta_arr = np.logspace(np.log10(Sim_beta[0]), np.log10(Sim_beta[-1]), num=num_interp_points)
+
+    if beta_arr == None:
+        beta_arr = np.logspace(np.log10(Sim_beta[0]), np.log10(Sim_beta[-1]), num=num_interp_points)
 
     time = {}
     dmdt = {}
@@ -190,7 +193,7 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points):
             np.savetxt(output_dir + current_sub_dir + '{0:f}'.format(beta_arr[i])[:5] + '.dat', np.transpose([np.concatenate([timeinterpolated[0], timeinterpolated[1]]),
                                                                                                            np.concatenate([dmdtinterpolated[0], dmdtinterpolated[1]])]))
 
-def mass_interpolate(input_dir, output_dir, age_string, m1, m2, num_interp_points):
+def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_dir=None, mass_arr=None):
 
     print("Processing: [%s, %s] for time %s" % (m1, m2, age_string))
 
@@ -199,12 +202,11 @@ def mass_interpolate(input_dir, output_dir, age_string, m1, m2, num_interp_point
     dmdt_sub_dirs = [m1_dir, m2_dir]
 
     # --------- GET SIMULATION BETAS -----------------
-    lo_sim_beta_files = os.listdir(input_dir + dmdt_sub_dirs[0])
-    lo_sim_beta_files.sort(key=sort_betas_key)
-    lo_sim_betas = [float(b[:-4]) for b in lo_sim_beta_files]
-
     # find lo_interp_beta_files
-    a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
+    if input_dir == None:
+        a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
+    else:
+        a = [f for f in os.listdir(input_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
     a.sort(key=sort_betas_key)
 
     # this will select 11 betas from lowest to highest. spaced by log from logsapce
@@ -213,8 +215,9 @@ def mass_interpolate(input_dir, output_dir, age_string, m1, m2, num_interp_point
     lo_interp_beta_files = a
     lo_interp_betas = [float(b[:-4]) for b in lo_interp_beta_files]
 
-    Sim_mass = [float(m1[1:4]), float(m2[1:4])]
-    mass_arr = np.linspace(Sim_mass[0], Sim_mass[-1], num=num_interp_points)
+    Sim_mass = [float(m1[1:]), float(m2[1:])]
+    if mass_arr == None:
+        mass_arr = np.linspace(Sim_mass[0], Sim_mass[-1], num=num_interp_points)
 
     for z, low_interp_beta_file in enumerate(lo_interp_beta_files):
         # ------ DIRECTORY PARAMETERS -------
@@ -240,8 +243,12 @@ def mass_interpolate(input_dir, output_dir, age_string, m1, m2, num_interp_point
         mapped_time = {}
         # get dmdt and t for the lowest beta value
         # energy & dmde (cgs)
-        time['lo'], dmdt['lo'] = np.genfromtxt(output_dir + dmdt_sub_dirs[0] + "/" + low_interp_beta_file,
-                                               skip_header=1, unpack=True)
+        if input_dir == None:
+            time['lo'], dmdt['lo'] = np.genfromtxt(output_dir + dmdt_sub_dirs[0] + "/" + low_interp_beta_file,
+                                                   skip_header=1, unpack=True)
+        else:
+            time['lo'], dmdt['lo'] = np.genfromtxt(input_dir + dmdt_sub_dirs[0] + "/" + low_interp_beta_file,
+                                                   skip_header=1, unpack=True)
         ipeak['lo'] = np.argmax(dmdt['lo'])
 
         # split time['lo'] & dmdt['lo'] into pre-peak and post-peak array
@@ -260,7 +267,10 @@ def mass_interpolate(input_dir, output_dir, age_string, m1, m2, num_interp_point
 
         # for i in range(1, len(Sim_beta)):
         for i in range(1, len(Sim_mass)):
-            a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
+            if input_dir == None:
+                a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
+            else:
+                a = [f for f in os.listdir(input_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
             a.sort(key=sort_betas_key)
             # this will select 11 betas from lowest to highest. spaced by log from logsapce
             # hi_interp_beta_files = a[::10]
@@ -271,8 +281,12 @@ def mass_interpolate(input_dir, output_dir, age_string, m1, m2, num_interp_point
             if len(hi_interp_beta_files) != len(lo_interp_beta_files):
                 print('ERROR not same number of betas. Not sure what to do?')
 
-            time['hi'], dmdt['hi'] = np.genfromtxt(output_dir + dmdt_sub_dirs[i] + "/" + hi_interp_beta_files[z],
-                                                   skip_header=1, unpack=True)
+            if input_dir == None:
+                time['hi'], dmdt['hi'] = np.genfromtxt(output_dir + dmdt_sub_dirs[i] + "/" + hi_interp_beta_files[z],
+                                                       skip_header=1, unpack=True)
+            else:
+                time['hi'], dmdt['hi'] = np.genfromtxt(input_dir + dmdt_sub_dirs[i] + "/" + hi_interp_beta_files[z],
+                                                       skip_header=1, unpack=True)
             ipeak['hi'] = np.argmax(dmdt['hi'])
 
             # split time_hi and dmdt_hi into pre-peak and post-peak array
@@ -417,7 +431,7 @@ def mass_interpolate(input_dir, output_dir, age_string, m1, m2, num_interp_point
                            np.transpose([np.concatenate([timeinterpolated[0], timeinterpolated[1]]),
                                          np.concatenate([dmdtinterpolated[0], dmdtinterpolated[1]])]))
 
-def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points):
+def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_dir=None, age_arr=None):
     print("Processing: [%s, %s] for mass %s" % (t1, t2, mass_string))
 
     t1_dir = model_dir_formatter.format(mass_string, t1)
@@ -427,7 +441,10 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points):
     # --------- GET SIMULATION BETAS -----------------
 
     # find lo_interp_beta_files
-    a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
+    if input_dir == None:
+        a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
+    else:
+        a = [f for f in os.listdir(input_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
     a.sort(key=sort_betas_key)
     # this will select 11 betas from lowest to highest. spaced by log from logsapce
     # lo_interp_beta_files = a[::10]
@@ -436,7 +453,8 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points):
     lo_interp_betas = [float(b[:-4]) for b in lo_interp_beta_files]
 
     Sim_age = [float(f.split('t')[1].split('/')[0]) for f in dmdt_sub_dirs]
-    age_arr = np.linspace(Sim_age[0], Sim_age[-1], num=num_interp_points)
+    if age_arr == None:
+        age_arr = np.linspace(Sim_age[0], Sim_age[-1], num=num_interp_points)
 
     # for z, low_sim_beta_file in enumerate(lo_sim_beta_files):
     for z, low_interp_beta_file in enumerate(lo_interp_beta_files):
@@ -473,8 +491,12 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points):
         mapped_time = {}
         # get dmdt and t for the lowest beta value
         # energy & dmde (cgs)
-        time['lo'], dmdt['lo'] = np.genfromtxt(output_dir + dmdt_sub_dirs[0] + "/" + low_interp_beta_file,
-                                               skip_header=1, unpack=True)
+        if input_dir == None:
+            time['lo'], dmdt['lo'] = np.genfromtxt(output_dir + dmdt_sub_dirs[0] + "/" + low_interp_beta_file,
+                                                   skip_header=1, unpack=True)
+        else:
+            time['lo'], dmdt['lo'] = np.genfromtxt(input_dir + dmdt_sub_dirs[0] + "/" + low_interp_beta_file,
+                                                   skip_header=1, unpack=True)
         ipeak['lo'] = np.argmax(dmdt['lo'])
 
         # split time['lo'] & dmdt['lo'] into pre-peak and post-peak array
@@ -495,7 +517,10 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points):
         for i in range(1, len(Sim_age)):
             # hi_sim_beta_files = os.listdir(dmdtbigdir + dmdtsmalldirs[i])
             # hi_sim_beta_files.sort()
-            a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
+            if input_dir == None:
+                a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
+            else:
+                a = [f for f in os.listdir(input_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
             a.sort(key=sort_betas_key)
             # this will select 11 betas from lowest to highest. spaced by log from logsapce
             # hi_interp_beta_files = a[::10]
@@ -509,8 +534,12 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points):
 
             # time['hi'], dmdt['hi'] = np.genfromtxt(dmdtdir + sim_beta_files[i], skip_header=1, unpack=True)
             # time['hi'], dmdt['hi'] = np.genfromtxt(dmdtbigdir + dmdtsmalldirs[x+1] + hi_sim_beta_files[i], skip_header=1, unpack=True)
-            time['hi'], dmdt['hi'] = np.genfromtxt(output_dir + dmdt_sub_dirs[i] + "/" + hi_interp_beta_files[z],
-                                                   skip_header=1, unpack=True)
+            if input_dir == None:
+                time['hi'], dmdt['hi'] = np.genfromtxt(output_dir + dmdt_sub_dirs[i] + "/" + hi_interp_beta_files[z],
+                                                       skip_header=1, unpack=True)
+            else:
+                time['hi'], dmdt['hi'] = np.genfromtxt(input_dir + dmdt_sub_dirs[i] + "/" + hi_interp_beta_files[z],
+                                                       skip_header=1, unpack=True)
 
             ipeak['hi'] = np.argmax(dmdt['hi'])
 
