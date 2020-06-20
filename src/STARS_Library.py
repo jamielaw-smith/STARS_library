@@ -119,7 +119,7 @@ if __name__ == "__main__":
     retrieve params:
         mass [Msol]:                                0.3 - 3.0
         age [fractional; 0 == ZAMS, 1.0 == TAMS]:   0.0 - 1.0
-        beta [impact param]:                        0.0 - 4.5
+        beta [impact param]:                        varies
         
         DEFAULT: mass = 1.0 age = 0.0 beta = 1.0
     """

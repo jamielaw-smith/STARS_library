@@ -4,7 +4,13 @@ import shutil
 from stars_interpolation import beta_interpolate, mass_interpolate, age_interpolate
 
 def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retrieval_output_dir):
-    # todo check if mass is outside [0.3, 3]. also if age is outside of [0,1]
+    # check if mass is outside [0.3, 3]. also if age is outside of [0,1]
+    if not (0.3 <= mass <= 3.0):
+        print('ERROR: mass must be in [0.3, 3]')
+        exit()
+    if not (0.0 <= age <= 1.0):
+        print('ERROR: age must be in [0, 1]')
+        exit()
     # todo also need to check if beta is outside of range for given directory
 
     outputdirs = [d for d in os.listdir(retrieval_input_dir) if not d.startswith('.')]
@@ -27,6 +33,11 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
         beta_files = np.array(beta_files)
         b_array = np.array(b_array)
+
+        # check if beta is outside range for given directory
+        if not (min(b_array) <= beta <= max(b_array)):
+            print('ERROR: beta outside range for this mass and age, which is', [min(b_array),max(b_array)])
+            exit()
 
         # check if already have beta
         sel_beta = np.where(b_array == beta)[0]
@@ -87,6 +98,11 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
         beta_files = np.array(beta_files)
         b_array = np.array(b_array)
+
+        # check if beta is outside range for given directory
+        if not (min(b_array) <= beta <= max(b_array)):
+            print('ERROR: beta outside range for this mass and age, which is', [min(b_array),max(b_array)])
+            exit()
 
         # check if already have beta
         sel_beta = np.where(b_array == beta)[0]
@@ -209,6 +225,11 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
     beta_files = np.array(beta_files)
     b_array = np.array(b_array)
+
+    # check if beta is outside range for given directory
+    if not (min(b_array) <= beta <= max(b_array)):
+        print('ERROR: beta outside range for this mass and age, which is', [min(b_array),max(b_array)])
+        exit()
 
     # check if already have beta
     sel_beta = np.where(b_array == beta)[0]
