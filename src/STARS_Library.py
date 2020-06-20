@@ -86,6 +86,9 @@ class STARS_Library:
 
         self.input_dir = config.get('general_settings', 'input_dir')
         self.output_dir = config.get('general_settings', 'output_dir')
+        self.retrieval_input_dir = config.get('general_settings', 'retrieval_input_dir')
+        self.retrieval_scratch_dir = config.get('general_settings', 'retrieval_scratch_dir')
+        self.retrieval_output_dir = config.get('general_settings', 'retrieval_output_dir')
         self.num_interp_beta = int(config.get('interpolation', 'NUM_BETA_INTERP_POINTS'))
         self.num_interp_mass = int(config.get('interpolation', 'NUM_MASS_INTERP_POINTS'))
         self.num_interp_age = int(config.get('interpolation', 'NUM_AGE_INTERP_POINTS'))
@@ -105,7 +108,7 @@ class STARS_Library:
 
     def retrieve(self, mass, age, beta):
         
-        retrieval(mass, age, beta)
+        retrieval(mass, age, beta, self.retrieval_input_dir, self.retrieval_scratch_dir, self.retrieval_output_dir)
 
 
 if __name__ == "__main__":

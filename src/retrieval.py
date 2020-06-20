@@ -3,12 +3,11 @@ import numpy as np
 import shutil
 from stars_interpolation import beta_interpolate, mass_interpolate, age_interpolate
 
-def retrieval(mass, age, beta):
+def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retrieval_output_dir):
     # todo check if mass is outside [0.3, 3]. also if age is outside of [0,1]
     # todo also need to check if beta is outside of range for given directory
 
-    # check if we already have anything, if not find neighbors
-    outputdirs = [d for d in os.listdir('../output/') if not d.startswith('.')]
+    outputdirs = [d for d in os.listdir(retrieval_input_dir) if not d.startswith('.')]
     m_array = [float(d.split('_')[0][1:]) for d in outputdirs]
     t_array = [float(d.split('_')[1][1:]) for d in outputdirs]
 
@@ -23,7 +22,7 @@ def retrieval(mass, age, beta):
         print(outputdirs[sel_mass_and_age][0])
 
         # get betas for this dir
-        beta_files = [f for f in os.listdir('../output/' + outputdirs[sel_mass_and_age][0]) if not f.startswith('.')]
+        beta_files = [f for f in os.listdir(retrieval_input_dir + outputdirs[sel_mass_and_age][0]) if not f.startswith('.')]
         b_array = [float(f.split('.dat')[0]) for f in beta_files]
 
         beta_files = np.array(beta_files)
@@ -33,11 +32,11 @@ def retrieval(mass, age, beta):
         sel_beta = np.where(b_array == beta)[0]
         if len(sel_beta) != 0:
             # copy existing beta to retrieval
-            if not os.path.exists('../retrieval/' + outputdirs[sel_mass_and_age][0]):
-                os.makedirs('../retrieval/' + outputdirs[sel_mass_and_age][0])
+            if not os.path.exists(retrieval_output_dir + outputdirs[sel_mass_and_age][0]):
+                os.makedirs(retrieval_output_dir + outputdirs[sel_mass_and_age][0])
 
-            shutil.copyfile('../output/' + outputdirs[sel_mass_and_age][0] + '/' + beta_files[sel_beta][0],
-                            '../retrieval/' + outputdirs[sel_mass_and_age][0] + '/' + beta_files[sel_beta][0])
+            shutil.copyfile(retrieval_input_dir + outputdirs[sel_mass_and_age][0] + '/' + beta_files[sel_beta][0],
+                            retrieval_output_dir + outputdirs[sel_mass_and_age][0] + '/' + beta_files[sel_beta][0])
 
         # if not, interpolate
         else:
@@ -45,8 +44,8 @@ def retrieval(mass, age, beta):
             upper_b = b_array[b_array > beta].min()
 
             beta_interpolate(
-                input_dir='../output/', 
-                output_dir='../retrieval/', 
+                input_dir=retrieval_input_dir, 
+                output_dir=retrieval_output_dir, 
                 current_sub_dir=outputdirs[sel_mass_and_age][0],
                 num_interp_points=-99,
                 sim_beta_files = [beta_files[b_array == lower_b][0], beta_files[b_array == upper_b][0]],
@@ -70,8 +69,8 @@ def retrieval(mass, age, beta):
         
         # interpolate in age
         age_interpolate(
-            input_dir='../output/',
-            output_dir='../retrieval_scratch/', 
+            input_dir=retrieval_input_dir,
+            output_dir=retrieval_scratch_dir, 
             mass_string=outputdirs[m_array == mass][0].split('_')[0], 
             t1=outputdirs[(m_array == mass) & (t_array == lower_t)][0].split('_')[1],
             t2=outputdirs[(m_array == mass) & (t_array == upper_t)][0].split('_')[1],
@@ -83,7 +82,7 @@ def retrieval(mass, age, beta):
         new_dir = outputdirs[m_array == mass][0].split('_')[0] + '_t' + str(round(age, 3))[:5]
 
         # get betas for this dir
-        beta_files = [f for f in os.listdir('../retrieval_scratch/' + new_dir) if not f.startswith('.')]
+        beta_files = [f for f in os.listdir(retrieval_scratch_dir + new_dir) if not f.startswith('.')]
         b_array = [float(f.split('.dat')[0]) for f in beta_files]
 
         beta_files = np.array(beta_files)
@@ -93,11 +92,11 @@ def retrieval(mass, age, beta):
         sel_beta = np.where(b_array == beta)[0]
         if len(sel_beta) != 0:
             # copy existing beta to retrieval
-            if not os.path.exists('../retrieval/' + new_dir):
-                os.makedirs('../retrieval/' + new_dir)
+            if not os.path.exists(retrieval_output_dir + new_dir):
+                os.makedirs(retrieval_output_dir + new_dir)
 
-            shutil.copyfile('../retrieval_scratch/' + new_dir + '/' + beta_files[sel_beta][0],
-                            '../retrieval/' + new_dir + '/' + beta_files[sel_beta][0])
+            shutil.copyfile(retrieval_scratch_dir + new_dir + '/' + beta_files[sel_beta][0],
+                            retrieval_output_dir + new_dir + '/' + beta_files[sel_beta][0])
 
         # if not, interpolate
         else:
@@ -105,8 +104,8 @@ def retrieval(mass, age, beta):
             upper_b = b_array[b_array > beta].min()
 
             beta_interpolate(
-                input_dir='../retrieval_scratch/', 
-                output_dir='../retrieval/', 
+                input_dir=retrieval_scratch_dir, 
+                output_dir=retrieval_output_dir, 
                 current_sub_dir=new_dir,
                 num_interp_points=-99,
                 sim_beta_files = [beta_files[b_array == lower_b][0], beta_files[b_array == upper_b][0]],
@@ -129,11 +128,11 @@ def retrieval(mass, age, beta):
 
         # TODO this is inefficient
         # copy to retrieval_scratch
-        if not os.path.exists('../retrieval_scratch/'):
-            os.makedirs('../retrieval_scratch/')
+        if not os.path.exists(retrieval_scratch_dir):
+            os.makedirs(retrieval_scratch_dir)
         # todo doesn't work if already exists
-        shutil.copytree('../output/' + outputdirs[(m_array == lower_m) & (t_array == age)][0], 
-                        '../retrieval_scratch/' + outputdirs[(m_array == lower_m) & (t_array == age)][0])
+        shutil.copytree(retrieval_input_dir + outputdirs[(m_array == lower_m) & (t_array == age)][0], 
+                        retrieval_scratch_dir + outputdirs[(m_array == lower_m) & (t_array == age)][0])
 
     # if not, find lower mass neighbors
     else:
@@ -145,8 +144,8 @@ def retrieval(mass, age, beta):
         
         # interpolate in age
         age_interpolate(
-            input_dir='../output/',
-            output_dir='../retrieval_scratch/', 
+            input_dir=retrieval_input_dir,
+            output_dir=retrieval_scratch_dir, 
             mass_string=outputdirs[m_array == lower_m][0].split('_')[0], 
             t1=outputdirs[(m_array == lower_m) & (t_array == lower_m_lower_t)][0].split('_')[1],
             t2=outputdirs[(m_array == lower_m) & (t_array == lower_m_upper_t)][0].split('_')[1],
@@ -164,11 +163,11 @@ def retrieval(mass, age, beta):
 
         # TODO this is inefficient
         # copy to retrieval_scratch
-        if not os.path.exists('../retrieval_scratch/'):
-            os.makedirs('../retrieval_scratch/')
+        if not os.path.exists(retrieval_scratch_dir):
+            os.makedirs(retrieval_scratch_dir)
         # todo doesn't work if already exists
-        shutil.copytree('../output/' + outputdirs[(m_array == upper_m) & (t_array == age)][0], 
-                        '../retrieval_scratch/' + outputdirs[(m_array == upper_m) & (t_array == age)][0])
+        shutil.copytree(retrieval_input_dir + outputdirs[(m_array == upper_m) & (t_array == age)][0], 
+                        retrieval_scratch_dir + outputdirs[(m_array == upper_m) & (t_array == age)][0])
 
     # if not, find lower mass neighbors
     else:
@@ -180,8 +179,8 @@ def retrieval(mass, age, beta):
 
         # interpolate in age
         age_interpolate(
-            input_dir='../output/',
-            output_dir='../retrieval_scratch/', 
+            input_dir=retrieval_input_dir,
+            output_dir=retrieval_scratch_dir, 
             mass_string=outputdirs[m_array == upper_m][0].split('_')[0], 
             t1=outputdirs[(m_array == upper_m) & (t_array == upper_m_lower_t)][0].split('_')[1],
             t2=outputdirs[(m_array == upper_m) & (t_array == upper_m_upper_t)][0].split('_')[1],
@@ -191,8 +190,8 @@ def retrieval(mass, age, beta):
 
     # interpolate in mass
     mass_interpolate(
-        input_dir='../retrieval_scratch/', 
-        output_dir='../retrieval_scratch/', 
+        input_dir=retrieval_scratch_dir, 
+        output_dir=retrieval_scratch_dir, 
         # this needs to match how we assign dir name in age_interpolate
         age_string='t'+str(round(age, 3))[:5], 
         m1=outputdirs[m_array == lower_m][0].split('_')[0],
@@ -205,7 +204,7 @@ def retrieval(mass, age, beta):
     new_dir = 'm' + str(round(mass, 3))[:5] + '_t' + str(round(age, 3))[:5]
 
     # get betas for this dir
-    beta_files = [f for f in os.listdir('../retrieval_scratch/' + new_dir) if not f.startswith('.')]
+    beta_files = [f for f in os.listdir(retrieval_scratch_dir + new_dir) if not f.startswith('.')]
     b_array = [float(f.split('.dat')[0]) for f in beta_files]
 
     beta_files = np.array(beta_files)
@@ -215,11 +214,11 @@ def retrieval(mass, age, beta):
     sel_beta = np.where(b_array == beta)[0]
     if len(sel_beta) != 0:
         # copy existing beta to retrieval
-        if not os.path.exists('../retrieval/' + new_dir):
-            os.makedirs('../retrieval/' + new_dir)
+        if not os.path.exists(retrieval_output_dir + new_dir):
+            os.makedirs(retrieval_output_dir + new_dir)
 
-        shutil.copyfile('../retrieval_scratch/' + new_dir + '/' + beta_files[sel_beta][0],
-                        '../retrieval/' + new_dir + '/' + beta_files[sel_beta][0])
+        shutil.copyfile(retrieval_scratch_dir + new_dir + '/' + beta_files[sel_beta][0],
+                        retrieval_output_dir + new_dir + '/' + beta_files[sel_beta][0])
 
     # if not, interpolate
     else:
@@ -227,8 +226,8 @@ def retrieval(mass, age, beta):
         upper_b = b_array[b_array > beta].min()
 
         beta_interpolate(
-            input_dir='../retrieval_scratch/', 
-            output_dir='../retrieval/', 
+            input_dir=retrieval_scratch_dir, 
+            output_dir=retrieval_output_dir, 
             current_sub_dir=new_dir,
             num_interp_points=-99,
             sim_beta_files = [beta_files[b_array == lower_b][0], beta_files[b_array == upper_b][0]],
@@ -240,4 +239,4 @@ def retrieval(mass, age, beta):
     # delete scratch directory tree
     # todo would want to put this before each of the exit()'s, or add more if/else's to the above
     # but leave for now for debug
-    shutil.rmtree('../retrieval_scratch/')
+    shutil.rmtree(retrieval_scratch_dir)
