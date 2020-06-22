@@ -123,6 +123,7 @@ class STARS_Library:
 if __name__ == "__main__":
     useagestring = """python STARS_Library.py [options]
 
+    todo need to edit this
     `python STARS_Library.py --retrieve {mass} {age} {beta}`
 
     retrieve params:
