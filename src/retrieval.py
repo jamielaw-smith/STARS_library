@@ -12,8 +12,23 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
         print('ERROR: age must be in [0, 1]')
         exit()
 
-    # todo check if already have this in ../retrieval/, 
-    # so that people don't have to keep deleting lines, and can just add one by one
+    # check if already have this in ../retrieval/, 
+    if os.path.exists(retrieval_output_dir):
+        dirs = [d for d in os.listdir(retrieval_output_dir) if not d.startswith('.')]
+        m_array_temp = [float(d.split('_')[0][1:]) for d in dirs]
+        t_array_temp = [float(d.split('_')[1][1:]) for d in dirs]
+
+        for i, (m, t) in enumerate(zip(m_array_temp, t_array_temp)):
+            
+            if (mass == m) & (age == t):
+                beta_files = [f for f in os.listdir(retrieval_output_dir + dirs[i]) if not f.startswith('.')]
+                b_array = [float(f.split('.dat')[0]) for f in beta_files]
+                beta_files = np.array(beta_files)
+                b_array = np.array(b_array)
+                sel_beta_temp = np.where(b_array == beta)[0]
+                if len(sel_beta_temp) != 0:
+                    print('Already retrieved %s' % retrieval_output_dir + dirs[i] + '/' + beta_files[sel_beta_temp][0])
+                    return
 
     outputdirs = [d for d in os.listdir(retrieval_input_dir) if not d.startswith('.')]
     m_array = [float(d.split('_')[0][1:]) for d in outputdirs]

@@ -16,11 +16,13 @@ class STARS_Library:
         if parser == None:
             parser = optparse.OptionParser(usage=usage, conflict_handler="resolve")
 
-        parser.add_option('--retrieve', default=(1.0, 0.0, 1.0), nargs=3, type='float',
-                          help='Tuple to retrieve model: {mass} {age} {beta}. DEFAULT=(1.0, 0.0, 1.0)')
+        parser.add_option("-r", "--retrieve", default=(1.0, 0.0, 1.0), nargs=3, type="float",
+                          help="Tuple to retrieve single model at command line: {mass} {age} {beta}.\
+                                DEFAULT=(1.0, 0.0, 1.0)")
 
-        parser.add_option('--retrieve_grid', action='store_true', dest='retrieve_grid', default=False, 
-                          help='Flag to retrieve grid of models in param file. DEFAULT=False')
+        parser.add_option("-g", "--retrieve_grid", action="store_true", dest="retrieve_grid", default=False, 
+                          help="Flag to retrieve grid of models from file, which is RETRIEVE.par by default.\
+                           DEFAULT=False")
 
         return (parser)
 
@@ -140,7 +142,7 @@ if __name__ == "__main__":
     options, args = parser.parse_args()
     stars_lib.options = options
 
-    # if options.retrieve?
+    # --retrieve should not run by default. How do I check if it has been called?
     #mass = options.retrieve[0]
     #age = options.retrieve[1]
     #beta = options.retrieve[2]
