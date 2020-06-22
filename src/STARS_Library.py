@@ -3,6 +3,7 @@ from configparser import RawConfigParser
 import time as tm
 from stars_interpolation import beta_interpolate, mass_interpolate, age_interpolate
 from retrieval import retrieval
+import numpy as np
 
 config = RawConfigParser()
 config.read(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'STARS.config')))
@@ -17,6 +18,9 @@ class STARS_Library:
 
         parser.add_option('--retrieve', default=(1.0, 0.0, 1.0), nargs=3, type='float',
                           help='Tuple to retrieve model: {mass} {age} {beta}. DEFAULT=(1.0, 0.0, 1.0)')
+
+        parser.add_option('--retrieve_grid', action='store_true', dest='retrieve_grid', default=False, 
+                          help='Flag to retrieve grid of models in param file. DEFAULT=False')
 
         return (parser)
 
@@ -89,12 +93,16 @@ class STARS_Library:
         self.retrieval_input_dir = config.get('general_settings', 'retrieval_input_dir')
         self.retrieval_scratch_dir = config.get('general_settings', 'retrieval_scratch_dir')
         self.retrieval_output_dir = config.get('general_settings', 'retrieval_output_dir')
+        self.retrieval_grid_file = config.get('general_settings', 'retrieval_grid_file')
         self.num_interp_beta = int(config.get('interpolation', 'NUM_BETA_INTERP_POINTS'))
         self.num_interp_mass = int(config.get('interpolation', 'NUM_MASS_INTERP_POINTS'))
         self.num_interp_age = int(config.get('interpolation', 'NUM_AGE_INTERP_POINTS'))
 
         # Check if initialized, if not, initialize first
-        # todo fails if ../output/ doesn't exist
+        # JLS added this as quick fix b/c below fails if ../output/ doesn't exist
+        if not os.path.exists(self.output_dir):
+            os.makedirs(self.output_dir)
+        
         interpolated_subdirs = [name for name in os.listdir(self.output_dir)
                                 if os.path.isdir(os.path.join(self.output_dir, name))]
 
@@ -118,9 +126,9 @@ if __name__ == "__main__":
     `python STARS_Library.py --retrieve {mass} {age} {beta}`
 
     retrieve params:
-        mass [Msol]:                                0.3 - 3.0
+        mass [M_sun]:                               0.3 - 3.0
         age [fractional; 0 == ZAMS, 1.0 == TAMS]:   0.0 - 1.0
-        beta [impact param]:                        varies
+        beta [impact parameter]:                    varies
         
         DEFAULT: mass = 1.0 age = 0.0 beta = 1.0
     """
@@ -131,11 +139,20 @@ if __name__ == "__main__":
     options, args = parser.parse_args()
     stars_lib.options = options
 
-    mass = options.retrieve[0]
-    age = options.retrieve[1]
-    beta = options.retrieve[2]
+    # if options.retrieve?
+    #mass = options.retrieve[0]
+    #age = options.retrieve[1]
+    #beta = options.retrieve[2]
+    #stars_lib.retrieve(mass, age, beta)
 
-    stars_lib.retrieve(mass, age, beta)
+    if options.retrieve_grid:
+        # can I access self.retrieval_grid_file here? doesn't work out of the box
+        #mass, age, beta = np.loadtxt(self.retrieval_grid_file, skiprows=1, unpack=True)
+        mass, age, beta = np.loadtxt('../RETRIEVE.par', skiprows=1, unpack=True)
+        for m, a, b in zip(mass, age, beta):
+            print(m, a, b)
+            stars_lib.retrieve(m, a, b)
+            print()
 
     end = tm.time()
     duration = (end - start)

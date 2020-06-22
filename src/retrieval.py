@@ -12,6 +12,9 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
         print('ERROR: age must be in [0, 1]')
         exit()
 
+    # todo check if already have this in ../retrieval/, 
+    # so that people don't have to keep deleting lines, and can just add one by one
+
     outputdirs = [d for d in os.listdir(retrieval_input_dir) if not d.startswith('.')]
     m_array = [float(d.split('_')[0][1:]) for d in outputdirs]
     t_array = [float(d.split('_')[1][1:]) for d in outputdirs]
@@ -22,7 +25,7 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
     sel_mass_and_age = np.where((m_array == mass) & (t_array == age))[0]
     sel_mass = np.where(m_array == mass)[0]
-    
+
     # check if already have this mass and age
     if len(sel_mass_and_age) != 0:
         print('#1')
@@ -48,6 +51,7 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
             if not os.path.exists(retrieval_output_dir + outputdirs[sel_mass_and_age][0]):
                 os.makedirs(retrieval_output_dir + outputdirs[sel_mass_and_age][0])
 
+            print('\tCopying %s' % retrieval_output_dir + outputdirs[sel_mass_and_age][0] + '/' + beta_files[sel_beta][0])
             shutil.copyfile(retrieval_input_dir + outputdirs[sel_mass_and_age][0] + '/' + beta_files[sel_beta][0],
                             retrieval_output_dir + outputdirs[sel_mass_and_age][0] + '/' + beta_files[sel_beta][0])
 
@@ -260,4 +264,5 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
     # delete scratch directory tree
     # comment out for debug
-    #shutil.rmtree(retrieval_scratch_dir)
+    if os.path.exists(retrieval_scratch_dir):
+        shutil.rmtree(retrieval_scratch_dir)
