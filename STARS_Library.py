@@ -164,7 +164,7 @@ if __name__ == "__main__":
         stars_lib.retrieve(mass, age, beta)
 
     if options.retrieve_grid:
-        mass, age, beta = np.loadtxt('../RETRIEVE.par', skiprows=1, unpack=True)
+        mass, age, beta = np.loadtxt('RETRIEVE.par', skiprows=1, unpack=True)
         for m, a, b in zip(mass, age, beta):
             stars_lib.retrieve(m, a, b)
 
