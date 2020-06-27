@@ -18,6 +18,7 @@ STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydr
 ## setup:
 
 `conda env create -f environment.yml`
+
 `pip run requirements.txt`
 
 
