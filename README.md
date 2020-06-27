@@ -25,6 +25,7 @@ STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydr
 ## usage:
 
 `python src/main.py`
+
 This creates an interpolated library in `output/`. 
 The input and output directories and the parameters of the interpolation are set in `STARS.config`:
 input_dir sets the input directory, AKA the backbone of simulated models.
@@ -34,6 +35,7 @@ output_dir sets the output directory, AKA where the interpolated library is outp
 `NUM_AGE_INTERP_POINTS` set the number of stellar ages in between each input age.
 
 `python src/main.py -r 1.0 0.0 2.0`
+
 This retrieves a dmdt for a star with 
 mass=1.0 [M_sun],
 age=0.0 [fractional; 0 == ZAMS, 1.0 == TAMS], 
@@ -45,6 +47,7 @@ Results will be placed in retrieval/ by default. This can be customized in `STAR
 `retrieval_output_dir` sets the directory the retrieval outputs to.
 
 `python src/main.py -g`
+
 This retrieves a grid of dmdts from `RETRIEVE.par`.
 One can specify a list of stellar masses, age, and impact parameters for which to retrieve dmdts in `RETRIEVE.par`, either tab- or comma-separated. The name of this file can be customized in `STARS.config`:
 `retrieval_grid_file` sets the parameter file read for -g.
