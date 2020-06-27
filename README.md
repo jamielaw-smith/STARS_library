@@ -79,3 +79,4 @@ If you use the `-r` or `-g` options and the interpolated library in `output/` ha
 
 Errors will be thrown if you request a dM/dt from a stellar mass, stellar age, or impact parameter outside the range of the interpolated library. Stellar mass is in the range [0.3,3] M_sun, stellar age [0.0, 1.0] fractional MS age, and impact parameter has a particular range for each star. The allowed range for beta is a little trickier to guess a priori, but the code will tell you what the range for a given star is if it throws an error.
 
+If you are renaming the default output directory, make sure that output directory (`output/` by default) is completely empty on the first initialize.
