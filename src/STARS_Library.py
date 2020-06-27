@@ -123,15 +123,28 @@ class STARS_Library:
 if __name__ == "__main__":
     useagestring = """python STARS_Library.py [options]
 
-    todo need to edit this
+    To run a single model:
+
     `python STARS_Library.py --retrieve {mass} {age} {beta}`
+    
+    To run a grid of models:
+    
+    1) Edit the ../RETRIEVE.par file with parameters you wish:
+    ex:
+    
+    mass [M_sun]    age [fractional; 0=ZAMS, 1==TAMS]   beta [r_p/r_t]
+    1               0                                   1
+    2               0.5                                 3
+    ...
+    
+    2) Run the command:
+    
+    `python STARS_Library.py --retrieve_grid`
 
     retrieve params:
         mass [M_sun]:                               0.3 - 3.0
         age [fractional; 0 == ZAMS, 1.0 == TAMS]:   0.0 - 1.0
         beta [impact parameter]:                    varies
-        
-        DEFAULT: mass = 1.0 age = 0.0 beta = 1.0
     """
     start = tm.time()
 
