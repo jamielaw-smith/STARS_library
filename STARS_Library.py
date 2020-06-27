@@ -91,6 +91,7 @@ class STARS_Library:
 
         self.input_dir = config.get('general_settings', 'input_dir')
         self.output_dir = config.get('general_settings', 'output_dir')
+        self.retrieval_grid_file = config.get('general_settings', 'retrieval_grid_file')
         self.retrieval_input_dir = config.get('general_settings', 'retrieval_input_dir')
         self.retrieval_scratch_dir = config.get('general_settings', 'retrieval_scratch_dir')
         self.retrieval_output_dir = config.get('general_settings', 'retrieval_output_dir')
@@ -164,7 +165,7 @@ if __name__ == "__main__":
         stars_lib.retrieve(mass, age, beta)
 
     if options.retrieve_grid:
-        mass, age, beta = np.loadtxt('RETRIEVE.par', skiprows=1, unpack=True)
+        mass, age, beta = np.loadtxt(stars_lib.retrieval_grid_file, skiprows=1, unpack=True)
         for m, a, b in zip(mass, age, beta):
             stars_lib.retrieve(m, a, b)
 
