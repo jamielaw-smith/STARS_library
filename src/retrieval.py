@@ -6,11 +6,9 @@ from stars_interpolation import beta_interpolate, mass_interpolate, age_interpol
 def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retrieval_output_dir):
     # check if mass is outside [0.3, 3]. also if age is outside of [0,1]
     if not (0.3 <= mass <= 3.0):
-        print('ERROR: mass must be in [0.3, 3]')
-        exit()
+        raise Exception('ERROR: mass must be in [0.3, 3]')
     if not (0.0 <= age <= 1.0):
-        print('ERROR: age must be in [0, 1]')
-        exit()
+        raise Exception('ERROR: age must be in [0, 1]')
 
     # check if already have this in ../retrieval/, 
     if os.path.exists(retrieval_output_dir):
