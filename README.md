@@ -71,7 +71,7 @@ This retrieves a list of dM/dt's from `RETRIEVE.par`.
 
 One can specify a list of stellar masses, age, and impact parameters for which to retrieve dM/dt's in `RETRIEVE.par`, either tab- or comma-separated. The name of this file can be customized in `STARS.config`:
 
-`retrieval_grid_file` sets the parameter file read for -g.
+`retrieval_grid_file` sets the parameter file read for `-g`.
 
 ## notes:
 
