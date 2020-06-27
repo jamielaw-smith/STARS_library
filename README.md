@@ -4,7 +4,7 @@ STARS: stellar TDEs (tidal disruption events) with abundances and realistic stru
 
 ## description:
 
-STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydrodynamical simulations of tidal disruption events (TDEs) using realistic stellar models.
+STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydrodynamical simulations of tidal disruption events (TDEs) using realistic stellar models. Possible use cases are:
 
 (1) One can download the dmdts from Law-Smith+2020a here: LINK.
 
