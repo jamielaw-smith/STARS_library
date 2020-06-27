@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import shutil
-from stars_interpolation import beta_interpolate, mass_interpolate, age_interpolate
+from src.stars_interpolation import beta_interpolate, mass_interpolate, age_interpolate
 
 def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retrieval_output_dir):
     # check if mass is outside [0.3, 3]. also if age is outside of [0,1]

@@ -1,7 +1,7 @@
 import os
 import numpy as np
 from scipy.interpolate import interp1d
-from constants import *
+from src.constants import *
 
 def sort_betas_key(f):
     return float(f.split('.dat')[0])

@@ -1,12 +1,12 @@
 import os
 from configparser import RawConfigParser
 import time as tm
-from stars_interpolation import beta_interpolate, mass_interpolate, age_interpolate
-from retrieval import retrieval
+from src.stars_interpolation import beta_interpolate, mass_interpolate, age_interpolate
+from src.retrieval import retrieval
 import numpy as np
 
 config = RawConfigParser()
-config.read(os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'STARS.config')))
+config.read(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'STARS.config')))
 
 class STARS_Library:
 
