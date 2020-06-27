@@ -16,9 +16,8 @@ class STARS_Library:
         if parser == None:
             parser = optparse.OptionParser(usage=usage, conflict_handler="resolve")
 
-        parser.add_option("-r", "--retrieve", default=(1.0, 0.0, 1.0), nargs=3, type="float",
-                          help="Tuple to retrieve single model at command line: {mass} {age} {beta}.\
-                                DEFAULT=(1.0, 0.0, 1.0)")
+        parser.add_option("-r", "--retrieve", nargs=3, type="float",
+                          help="Tuple to retrieve single model at command line: {mass} {age} {beta}.")
 
         parser.add_option("-g", "--retrieve_grid", action="store_true", dest="retrieve_grid", default=False, 
                           help="Flag to retrieve grid of models from file, which is RETRIEVE.par by default.\
@@ -118,7 +117,6 @@ class STARS_Library:
             print("... Initialize complete. [%0.2f sec]" % (t2 - t1))
 
     def retrieve(self, mass, age, beta):
-        
         retrieval(mass, age, beta, self.retrieval_input_dir, self.retrieval_scratch_dir, self.retrieval_output_dir)
 
 
