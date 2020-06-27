@@ -17,4 +17,4 @@ OR
 
 ## usage:
 
-`python src/main.py`
+`python src/STARS_Library.py -g`

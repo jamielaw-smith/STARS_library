@@ -142,20 +142,20 @@ if __name__ == "__main__":
     options, args = parser.parse_args()
     stars_lib.options = options
 
-    # --retrieve should not run by default. How do I check if it has been called?
-    #mass = options.retrieve[0]
-    #age = options.retrieve[1]
-    #beta = options.retrieve[2]
-    #stars_lib.retrieve(mass, age, beta)
+
+    if options.retrieve and options.retrieve_grid:
+        raise Exception("Only use -r OR -g!!")
+
+    if options.retrieve:
+        mass = options.retrieve[0]
+        age = options.retrieve[1]
+        beta = options.retrieve[2]
+        stars_lib.retrieve(mass, age, beta)
 
     if options.retrieve_grid:
-        # can I access self.retrieval_grid_file here? doesn't work out of the box
-        #mass, age, beta = np.loadtxt(self.retrieval_grid_file, skiprows=1, unpack=True)
         mass, age, beta = np.loadtxt('../RETRIEVE.par', skiprows=1, unpack=True)
         for m, a, b in zip(mass, age, beta):
-            print(m, a, b)
             stars_lib.retrieve(m, a, b)
-            print()
 
     end = tm.time()
     duration = (end - start)
