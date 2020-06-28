@@ -53,7 +53,7 @@ class STARS_Library:
             age_key = dir_name.split("_")[-1]
             mass_key = dir_name.split("_")[0]
 
-            # DC HACK - we're currently not handling the t0.57 case for now, so skip...
+            # We're currently not handling the t0.57 case in the mass interpolation, so skip
             if age_key == "t0.57":
                 continue
 
@@ -125,7 +125,7 @@ if __name__ == "__main__":
     useagestring = """python STARS_Library.py [options]
 
     ### To run a single model: ###
-    `python STARS_Library.py --retrieve {mass} {age} {beta}`
+    `python STARS_Library.py -r {mass} {age} {beta}`
     
     retrieve params:
         mass [M_sun]:                               0.3 - 3.0
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     ...
     
     2) Run the command:
-    `python STARS_Library.py --retrieve_grid`
+    `python STARS_Library.py -g`
     """
     start = tm.time()
 
@@ -156,7 +156,7 @@ if __name__ == "__main__":
 
 
     if options.retrieve and options.retrieve_grid:
-        raise Exception("Only use -r OR -g!!")
+        raise Exception("Use only -r OR -g.")
 
     if options.retrieve:
         mass = options.retrieve[0]
