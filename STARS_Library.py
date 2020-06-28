@@ -171,6 +171,6 @@ if __name__ == "__main__":
 
     end = tm.time()
     duration = (end - start)
-    print("\n********* start DEBUG ***********")
-    print("STARS_Library `retrieve` execution time: %s" % duration)
-    print("********* end DEBUG ***********\n")
+    #print("\n********* start DEBUG ***********")
+    #print("STARS_Library `retrieve` execution time: %s" % duration)
+    #print("********* end DEBUG ***********\n")

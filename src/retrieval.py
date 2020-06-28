@@ -41,10 +41,6 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
     # check if already have this mass and age
     if len(sel_mass_and_age) != 0:
-        print('#1')
-        print('have mass and age:')
-        print(outputdirs[sel_mass_and_age][0])
-
         # get betas for this dir
         beta_files = [f for f in os.listdir(retrieval_input_dir + outputdirs[sel_mass_and_age][0]) if not f.startswith('.')]
         b_array = [float(f.split('.dat')[0]) for f in beta_files]
@@ -54,8 +50,7 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
         # check if beta is outside range for given directory
         if not (min(b_array) <= beta <= max(b_array)):
-            print('ERROR: beta outside range for this mass and age, which is', [min(b_array),max(b_array)])
-            exit()
+            raise Exception('ERROR: beta outside range for this mass and age, which is '+ str([min(b_array),max(b_array)]))
 
         # check if already have beta
         sel_beta = np.where(b_array == beta)[0]
@@ -85,16 +80,11 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
     # else check if already have this mass
     elif len(sel_mass) != 0:
-        print('#2')
         # don't have age b/c checked above
         # get age neighbors
         t_array_at_this_mass = t_array[sel_mass]
         lower_t = t_array_at_this_mass[t_array_at_this_mass < age].max()
         upper_t = t_array_at_this_mass[t_array_at_this_mass > age].min()  
-
-        print('have mass; age neighbors:')
-        print(outputdirs[(m_array == mass) & (t_array == lower_t)][0])
-        print(outputdirs[(m_array == mass) & (t_array == upper_t)][0])
         
         # interpolate in age
         age_interpolate(
@@ -119,8 +109,7 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
         # check if beta is outside range for given directory
         if not (min(b_array) <= beta <= max(b_array)):
-            print('ERROR: beta outside range for this mass and age, which is', [min(b_array),max(b_array)])
-            exit()
+            raise Exception('ERROR: beta outside range for this mass and age, which is '+ str([min(b_array),max(b_array)]))
 
         # check if already have beta
         sel_beta = np.where(b_array == beta)[0]
@@ -149,7 +138,6 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
     # else find mass neighbors
     else:
-        print('#3')
         lower_m = m_array[m_array < mass].max()
         upper_m = m_array[m_array > mass].min()
 
@@ -158,9 +146,6 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
         # check if have this age
         if len(t_array_lower_mass[t_array_lower_mass == age]) != 0:
-            print('lower mass neighbor:')
-            print(outputdirs[(m_array == lower_m) & (t_array == age)][0])
-
             # TODO this is inefficient
             # copy to retrieval_scratch
             if not os.path.exists(retrieval_scratch_dir):
@@ -173,9 +158,6 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
         else:
             lower_m_lower_t = t_array_lower_mass[t_array_lower_mass < age].max()
             lower_m_upper_t = t_array_lower_mass[t_array_lower_mass > age].min()
-            print('lower mass neighbors:')
-            print(outputdirs[(m_array == lower_m) & (t_array == lower_m_lower_t)][0])
-            print(outputdirs[(m_array == lower_m) & (t_array == lower_m_upper_t)][0])
             
             # interpolate in age
             age_interpolate(
@@ -193,9 +175,6 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
         # check if have this age
         if len(t_array_upper_mass[t_array_upper_mass == age]) != 0:
-            print('upper mass neighbor:')
-            print(outputdirs[(m_array == upper_m) & (t_array == age)][0])
-
             # TODO this is inefficient
             # copy to retrieval_scratch
             if not os.path.exists(retrieval_scratch_dir):
@@ -208,9 +187,6 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
         else:
             upper_m_lower_t = t_array_upper_mass[t_array_upper_mass < age].max()
             upper_m_upper_t = t_array_upper_mass[t_array_upper_mass > age].min()
-            print('upper mass neighbors:')
-            print(outputdirs[(m_array == upper_m) & (t_array == upper_m_lower_t)][0])
-            print(outputdirs[(m_array == upper_m) & (t_array == upper_m_upper_t)][0])
 
             # interpolate in age
             age_interpolate(
@@ -247,8 +223,7 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
         # check if beta is outside range for given directory
         if not (min(b_array) <= beta <= max(b_array)):
-            print('ERROR: beta outside range for this mass and age, which is', [min(b_array),max(b_array)])
-            exit()
+            raise Exception('ERROR: beta outside range for this mass and age, which is '+ str([min(b_array),max(b_array)]))
 
         # check if already have beta
         sel_beta = np.where(b_array == beta)[0]

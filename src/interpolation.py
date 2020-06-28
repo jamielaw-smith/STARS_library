@@ -539,7 +539,8 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
             # hi_sim_betas = [float(b[:-4]) for b in hi_sim_beta_files]
 
             if len(hi_interp_beta_files) != len(lo_interp_beta_files):
-                print('ERROR not same number of betas. Not sure what to do?')
+                raise Exception('ERROR: not same number of betas in each directory.\
+                                Possibly because did not clear output directory before making new interpolated library.')
 
             # time['hi'], dmdt['hi'] = np.genfromtxt(dmdtdir + sim_beta_files[i], skip_header=1, unpack=True)
             # time['hi'], dmdt['hi'] = np.genfromtxt(dmdtbigdir + dmdtsmalldirs[x+1] + hi_sim_beta_files[i], skip_header=1, unpack=True)
@@ -689,8 +690,6 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
                          Sim_age[interp_index_low[i]]))
 
                 timeinterpolated = np.array(timeinterpolated)
-
-                # print(np.shape(dmdtinterpolated, dmdtinterpolated[0]))
 
                 savesmalldir = mass_string + '_t' + str(round(age_arr[i], 3))[:5] + '/'
                 if not os.path.exists(output_dir + savesmalldir):
