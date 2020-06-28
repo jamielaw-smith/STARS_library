@@ -1,7 +1,7 @@
 import os
 from configparser import RawConfigParser
 import time as tm
-from src.stars_interpolation import beta_interpolate, mass_interpolate, age_interpolate
+from src.interpolation import beta_interpolate, mass_interpolate, age_interpolate
 from src.retrieval import retrieval
 import numpy as np
 
