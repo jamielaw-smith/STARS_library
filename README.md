@@ -36,7 +36,7 @@ Or, to install requiements via pip:
 
 ### initialize interpolated library
 
-`python src/main.py`
+`python STARS_Library.py`
 
 This creates an interpolated library in `output/`. 
 The input and output directories and the parameters of the interpolation are set in `STARS.config`:
@@ -53,7 +53,7 @@ The input and output directories and the parameters of the interpolation are set
 
 ### retrieve a single dM/dt
 
-`python src/main.py -r 1.0 0.0 2.0`
+`python STARS_Library.py -r 1.0 0.0 2.0`
 
 This retrieves a dM/dt for a star with 
 
@@ -73,7 +73,7 @@ This command line option is appropriate for retrieving a single interpolated mod
 
 ### retrieve a list of dM/dt's
 
-`python src/main.py -g`
+`python STARS_Library.py -g`
 
 This retrieves a list of dM/dt's from `RETRIEVE.par`.
 
