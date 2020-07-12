@@ -21,9 +21,13 @@ STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydr
 
 `cd STARS_library`
 
+Do either this, to install requirements through anaconda:
+
 `conda env create -f environment.yml`
 
 `conda activate py37`
+
+Or, to install requiements via pip:
 
 `pip install -r requirements.txt`
 
