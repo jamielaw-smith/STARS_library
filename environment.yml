@@ -1,4 +1,4 @@
-name: py37
+name: stars_lib
 channels:
   - defaults
 dependencies:
