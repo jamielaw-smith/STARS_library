@@ -8,7 +8,7 @@ import numpy as np
 config = RawConfigParser()
 config.read(os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'STARS.config')))
 
-class STARS_Library:
+class STARS_library:
 
     def add_options(self, parser=None, usage=None, config=None):
         import optparse
@@ -122,10 +122,10 @@ class STARS_Library:
 
 
 if __name__ == "__main__":
-    useagestring = """python STARS_Library.py [options]
+    useagestring = """python STARS_library.py [options]
 
     ### To run a single model: ###
-    `python STARS_Library.py -r {mass} {age} {beta}`
+    `python STARS_library.py -r {mass} {age} {beta}`
     
     retrieve params:
         mass [M_sun]:                               0.3 - 3.0
@@ -145,11 +145,11 @@ if __name__ == "__main__":
     ...
     
     2) Run the command:
-    `python STARS_Library.py -g`
+    `python STARS_library.py -g`
     """
-    start = tm.time()
+    #start = tm.time()
 
-    stars_lib = STARS_Library()
+    stars_lib = STARS_library()
     parser = stars_lib.add_options(usage=useagestring)
     options, args = parser.parse_args()
     stars_lib.options = options
@@ -169,8 +169,8 @@ if __name__ == "__main__":
         for m, a, b in zip(mass, age, beta):
             stars_lib.retrieve(m, a, b)
 
-    end = tm.time()
-    duration = (end - start)
+    #end = tm.time()
+    #duration = (end - start)
     #print("\n********* start DEBUG ***********")
-    #print("STARS_Library `retrieve` execution time: %s" % duration)
+    #print("STARS_library `retrieve` execution time: %s" % duration)
     #print("********* end DEBUG ***********\n")
