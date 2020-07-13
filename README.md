@@ -16,7 +16,7 @@ NUM_BETA=10, NUM_MASS=5, NUM_AGE=5: https://www.dropbox.com/s/xohdcp5tylazsrg/ST
 
 NUM_BETA=100, NUM_MASS=2, NUM_AGE=2: https://www.dropbox.com/s/l43ey32hgyqszjl/STARS_library_output_1000_2_2.zip?dl=0 (0.9 GB)
 
-NUM_BETA=100, NUM_MASS=12, NUM_AGE=12: (5 GB)
+NUM_BETA=100, NUM_MASS=12, NUM_AGE=12: LINK (5 GB)
 
 (3) One can retrieve dM/dt's for any particular values of (stellar mass, stellar age, impact parameter), either at the command line or via a list in a file.
 
