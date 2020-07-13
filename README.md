@@ -29,13 +29,13 @@ Several pre-packaged interpolated grids with different spacings are also availab
 
 `cd STARS_library`
 
-Do either this, to install requirements through anaconda:
+To install the requirements in a new conda environment:
 
 `conda env create -f environment.yml`
 
 `conda activate stars_lib`
 
-Or, to install requiements via pip:
+OR, to install requiements via pip:
 
 `pip install -r requirements.txt`
 
