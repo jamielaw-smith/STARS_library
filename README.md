@@ -8,7 +8,7 @@ STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydr
 
 (1) One can download the dM/dt's from Law-Smith+2020a here (note these also exist in the `input/` folder of this repository): https://www.dropbox.com/s/pissnvep1389s9t/STARS_library_input.zip?dl=0.
 
-(2) One can create an interpolated library of dM/dt's from these simulations, to arbitrary spacing in stellar mass, stellar age, and impact parameter. A pre-packaged interpolated grid is available here: DROPBOX LINK.
+(2) One can create an interpolated library of dM/dt's from these simulations, to arbitrary spacing in stellar mass, stellar age, and impact parameter. A pre-packaged interpolated grid, with spacing XYZ, is available here: DROPBOX LINK.
 
 (3) One can retrieve dM/dt's for any particular values of (stellar mass, stellar age, impact parameter), either at the command line or via a list in a file.
 
