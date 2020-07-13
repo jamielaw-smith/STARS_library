@@ -100,9 +100,11 @@ If you are renaming the default output directory, make sure that output director
 ## Images
 
 Volume rendering of FLASH simulation of tidal disruption of beta=1 encounter of 1 Msun ZAMS star with 10^6 Msun BH:
+
 <img src="https://people.ucsc.edu/~lawsmith/theme/images/image1.png" width="500" alt="Simulation snapshot">
 
 dM/dt's from STARS_library on a small grid:
+
 <img src="https://people.ucsc.edu/~lawsmith/theme/images/mdots.png" width="500" alt="dM/dt's">
 
 ## Reference
