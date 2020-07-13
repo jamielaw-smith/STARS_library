@@ -2,7 +2,8 @@
 
 STARS: stellar TDEs (tidal disruption events) with abundances and realistic structures
 
-![Simulation snapshot](https://www.dropbox.com/s/8iikdyuc6bosbhr/image1.png?dl=0)
+![Simulation snapshot](https://people.ucsc.edu/~lawsmith/theme/images/image1.png)
+![dM/dt's](https://people.ucsc.edu/~lawsmith/theme/images/mdots.png)
 
 ## Description
 
