@@ -33,7 +33,7 @@ Do either this, to install requirements through anaconda:
 
 `conda env create -f environment.yml`
 
-`conda activate py37`
+`conda activate stars_lib`
 
 Or, to install requiements via pip:
 
