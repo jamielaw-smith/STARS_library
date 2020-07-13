@@ -108,4 +108,4 @@ dM/dt's from STARS_library on a small grid:
 <img src="https://people.ucsc.edu/~lawsmith/theme/images/mdots.png" width="500" alt="dM/dt's">
 
 ## Reference
-Please cite our paper if you use this repository: LINK.
+Please cite our paper if you use this repository: LINK TO ADS.
