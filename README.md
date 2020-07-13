@@ -6,9 +6,17 @@ STARS: stellar TDEs (tidal disruption events) with abundances and realistic stru
 
 STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydrodynamical simulations of tidal disruption events (TDEs) using realistic stellar models. Possible use cases are:
 
-(1) One can download the dM/dt's from Law-Smith+2020a here (note these also exist in the `input/` folder of this repository): https://www.dropbox.com/s/pissnvep1389s9t/STARS_library_input.zip?dl=0.
+(1) One can download the original dM/dt's from Law-Smith+2020a here (note these also exist in the `input/` folder of this repository): https://www.dropbox.com/s/pissnvep1389s9t/STARS_library_input.zip?dl=0.
 
-(2) One can create an interpolated library of dM/dt's from these simulations, to arbitrary spacing in stellar mass, stellar age, and impact parameter. A pre-packaged interpolated grid, with spacing XYZ, is available here: DROPBOX LINK.
+(2) One can create an interpolated library of dM/dt's from these simulations, to arbitrary spacing in stellar mass, stellar age, and impact parameter. 
+
+Several pre-packaged interpolated grids with different spacings are also available.
+
+NUM_BETA=10, NUM_MASS=5, NUM_AGE=5: https://www.dropbox.com/s/xohdcp5tylazsrg/STARS_library_output_10_5_5.zip?dl=0 (80 MB)
+
+NUM_BETA=100, NUM_MASS=2, NUM_AGE=2: https://www.dropbox.com/s/l43ey32hgyqszjl/STARS_library_output_1000_2_2.zip?dl=0 (0.9 GB)
+
+NUM_BETA=100, NUM_MASS=12, NUM_AGE=12: (5 GB)
 
 (3) One can retrieve dM/dt's for any particular values of (stellar mass, stellar age, impact parameter), either at the command line or via a list in a file.
 
