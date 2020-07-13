@@ -2,7 +2,7 @@
 
 STARS: stellar TDEs (tidal disruption events) with abundances and realistic structures
 
-## description:
+## Description
 
 STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydrodynamical simulations of tidal disruption events (TDEs) using realistic stellar models. Possible use cases are:
 
@@ -21,11 +21,11 @@ NUM_BETA=100, NUM_MASS=12, NUM_AGE=12: LINK (5 GB)
 (3) One can retrieve dM/dt's for any particular values of (stellar mass, stellar age, impact parameter), either at the command line or via a list in a file.
 
 
-## installation:
+## Installation
 
 `git clone https://github.com/jamielaw-smith/STARS_library.git`
 
-## setup:
+## Setup
 
 `cd STARS_library`
 
@@ -40,9 +40,9 @@ Or, to install requiements via pip:
 `pip install -r requirements.txt`
 
 
-## usage:
+## Usage
 
-### initialize interpolated library
+### Initialize interpolated library:
 
 `python STARS_Library.py`
 
@@ -59,7 +59,7 @@ The input and output directories and the parameters of the interpolation are set
 
 `NUM_AGE_INTERP_POINTS` set the number of stellar ages in between each input age.
 
-### retrieve a single dM/dt
+### Retrieve a single dM/dt:
 
 `python STARS_Library.py -r 1.0 0.0 2.0`
 
@@ -79,7 +79,7 @@ This command line option is appropriate for retrieving a single interpolated mod
 
 `retrieval_output_dir` sets the directory the retrieval outputs to.
 
-### retrieve a list of dM/dt's
+### Retrieve a list of dM/dt's:
 
 `python STARS_Library.py -g`
 
@@ -89,7 +89,7 @@ One can specify a list of stellar masses, age, and impact parameters for which t
 
 `retrieval_grid_file` sets the parameter file read for `-g`.
 
-## notes:
+## Notes
 
 If you use the `-r` or `-g` options and the interpolated library in `output/` has not been initialized yet, the code will do this automatically.
 
