@@ -2,9 +2,6 @@
 
 STARS: stellar TDEs (tidal disruption events) with abundances and realistic structures
 
-<img src="https://people.ucsc.edu/~lawsmith/theme/images/image1.png" width="500" alt="Simulation snapshot">
-<img src="https://people.ucsc.edu/~lawsmith/theme/images/mdots.png" width="500" alt="dM/dt's">
-
 ## Description
 
 STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydrodynamical simulations of tidal disruption events (TDEs) using realistic stellar models. Possible use cases are:
@@ -99,3 +96,14 @@ If you use the `-r` or `-g` options and the interpolated library in `output/` ha
 Errors will be thrown if you request a dM/dt from a stellar mass, stellar age, or impact parameter outside the range of the interpolated library. Stellar mass is in the range [0.3,3] M_sun, stellar age [0.0, 1.0] fractional MS age, and impact parameter has a particular range for each star. The allowed range for beta is a little trickier to guess a priori, but the code will tell you what the range for a given star is if it throws an error.
 
 If you are renaming the default output directory, make sure that output directory (`output/` by default) is completely empty on the first initialize.
+
+## Images
+
+Volume rendering of FLASH simulation of tidal disruption of beta=1 encounter of 1 Msun ZAMS star with 10^6 Msun BH:
+<img src="https://people.ucsc.edu/~lawsmith/theme/images/image1.png" width="500" alt="Simulation snapshot">
+
+dM/dt's from STARS_library on a small grid:
+<img src="https://people.ucsc.edu/~lawsmith/theme/images/mdots.png" width="500" alt="dM/dt's">
+
+## Reference
+Please cite our paper if you use this repository: LINK.
