@@ -14,7 +14,7 @@ Several pre-packaged interpolated grids with different spacings are also availab
 
 - beta's=10, stellar masses=21, stellar ages=5: [.zip file](LINK) (35 MB).
 
-- beta's=1000, stellar masses=6, stellar ages=2: [.zip file](LINK) (324 GB).
+- beta's=1000, stellar masses=6, stellar ages=2: [.zip file](LINK) (324 MB).
 
 - beta's=100, stellar masses=56, stellar ages=12: [.zip file](LINK) (3 GB).
 
