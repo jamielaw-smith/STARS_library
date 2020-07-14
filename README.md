@@ -12,11 +12,11 @@ STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydr
 
 Several pre-packaged interpolated grids with different spacings are also available:
 
-- NUM_BETA=10, NUM_MASS=5, NUM_AGE=5: [.zip file](LINK) (35 MB).
+- beta's=10, stellar masses=21, stellar ages=5: [.zip file](LINK) (35 MB).
 
-- NUM_BETA=100, NUM_MASS=2, NUM_AGE=2: [.zip file](LINK) (324 GB).
+- beta's=1000, stellar masses=6, stellar ages=2: [.zip file](LINK) (324 GB).
 
-- NUM_BETA=100, NUM_MASS=12, NUM_AGE=12: [.zip file](LINK) (3 GB).
+- beta's=100, stellar masses=56, stellar ages=12: [.zip file](LINK) (3 GB).
 
 (3) One can retrieve dM/dt's for any particular values of (stellar mass, stellar age, impact parameter), either at the command line or via a list in a file.
 
