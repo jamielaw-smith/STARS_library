@@ -101,13 +101,13 @@ The dM/dt's in the .dat files were constructed with 200 data points per log inte
 
 ## Images
 
-Volume rendering of FLASH simulation of tidal disruption of beta=1 encounter of 1 Msun ZAMS star with 10^6 Msun BH:
+Volume rendering of a 1 Msun ZAMS star in a beta=1 encounter with a 10^6 Msun BH:
 
-<img src="https://people.ucsc.edu/~lawsmith/theme/images/image1.png" width="500" alt="Simulation snapshot">
+<img src="https://people.ucsc.edu/~lawsmith/theme/images/image1.png" width="800" alt="Simulation snapshot">
 
 dM/dt's from STARS_library on a small grid:
 
-<img src="https://people.ucsc.edu/~lawsmith/theme/images/mdots.png" width="500" alt="dM/dt's">
+<img src="https://people.ucsc.edu/~lawsmith/theme/images/mdots.png" width="800" alt="dM/dt's">
 
 ## Reference
 Please cite our paper if you use this repository: LINK TO ADS.
