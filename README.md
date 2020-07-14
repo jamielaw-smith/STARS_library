@@ -113,3 +113,6 @@ dM/dt's from STARS_library on a small grid:
 
 ## Reference
 Please cite our paper if you use this repository: LINK TO ADS.
+
+## Issues / requests
+If you encounter any issues, or if you have suggestions for improvements that would be useful to you, please do not hesitate to let us know. You can reach Jamie Law-Smith at <lawsmith@ucsc.edu>. 
