@@ -6,17 +6,17 @@ STARS: stellar TDEs (tidal disruption events) with abundances and realistic stru
 
 STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydrodynamical simulations of tidal disruption events (TDEs) using realistic stellar models. Possible use cases are:
 
-(1) One can download the original dM/dt's from Law-Smith+2020a here (note these also exist in the `input/` folder of this repository): [.zip file](https://www.dropbox.com/s/pissnvep1389s9t/STARS_library_input.zip?dl=1) (6 MB).
+(1) One can download the original dM/dt's from Law-Smith+2020a here (note these also exist in the `input/` folder of this repository): [.zip file](LINK) (6 MB).
 
 (2) One can create an interpolated library of dM/dt's from these simulations, to arbitrary spacing in stellar mass, stellar age, and impact parameter. 
 
 Several pre-packaged interpolated grids with different spacings are also available:
 
-- NUM_BETA=10, NUM_MASS=5, NUM_AGE=5: [.zip file](https://www.dropbox.com/s/xohdcp5tylazsrg/STARS_library_output_10_5_5.zip?dl=1) (80 MB).
+- NUM_BETA=10, NUM_MASS=5, NUM_AGE=5: [.zip file](LINK) (35 MB).
 
-- NUM_BETA=100, NUM_MASS=2, NUM_AGE=2: [.zip file](https://www.dropbox.com/s/l43ey32hgyqszjl/STARS_library_output_1000_2_2.zip?dl=1) (0.9 GB).
+- NUM_BETA=100, NUM_MASS=2, NUM_AGE=2: [.zip file](LINK) (324 GB).
 
-- NUM_BETA=100, NUM_MASS=12, NUM_AGE=12: [.zip file](https://www.dropbox.com/s/bh1skrn5szrt87a/STARS_library_output_100_12_12.zip?dl=1) (5 GB).
+- NUM_BETA=100, NUM_MASS=12, NUM_AGE=12: [.zip file](LINK) (3 GB).
 
 (3) One can retrieve dM/dt's for any particular values of (stellar mass, stellar age, impact parameter), either at the command line or via a list in a file.
 
@@ -96,6 +96,8 @@ If you use the `-r` or `-g` options and the interpolated library in `output/` ha
 Errors will be thrown if you request a dM/dt from a stellar mass, stellar age, or impact parameter outside the range of the interpolated library. Stellar mass is in the range [0.3,3] M_sun, stellar age [0.0, 1.0] fractional MS age, and impact parameter has a particular range for each star. The allowed range for beta is a little trickier to guess a priori, but the code will tell you what the range for a given star is if it throws an error.
 
 If you are renaming the default output directory, make sure that output directory (`output/` by default) is completely empty on the first initialize.
+
+The dM/dt's in the .dat files were constructed with 200 data points per log interval in time in order to keep the final size of the interpolated library small. Please contact us if you would like dM/dt files that are more finely spaced in time.
 
 ## Images
 
