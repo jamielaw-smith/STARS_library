@@ -19,7 +19,7 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, 
     Premapdmdt = []
 
     if sim_beta_files == None:
-        sim_beta_files = os.listdir(current_dmdt_dir)
+        sim_beta_files = [f for f in os.listdir(current_dmdt_dir) if not f.startswith('.')]
         sim_beta_files.sort(key=sort_betas_key)
 
     Sim_beta = [float(b[:-4]) for b in sim_beta_files]
