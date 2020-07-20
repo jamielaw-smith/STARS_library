@@ -6,17 +6,17 @@ STARS: stellar TDEs (tidal disruption events) with abundances and realistic stru
 
 STARS_library is a grid of fallback rates to the black hole (dM/dt) from 3D hydrodynamical simulations of tidal disruption events (TDEs) using realistic stellar models. Possible use cases are:
 
-(1) One can download the original dM/dt's from Law-Smith+2020a here (note these also exist in the `input/` folder of this repository): [.zip file](https://www.dropbox.com/s/pissnvep1389s9t/STARS_library_input.zip?dl=1) (6 MB).
+(1) One can download the original dM/dt's from Law-Smith+2020a here (note these also exist in the `input/` folder of this repository): [.zip file](https://www.dropbox.com/s/pissnvep1389s9t/STARS_library_input.zip?dl=1) (3 MB).
 
 (2) One can create an interpolated library of dM/dt's from these simulations, to arbitrary spacing in stellar mass, stellar age, and impact parameter. 
 
 Several pre-packaged interpolated grids with different spacings are also available:
 
-- NUM_BETA=10, NUM_MASS=5, NUM_AGE=5: [.zip file](https://www.dropbox.com/s/xohdcp5tylazsrg/STARS_library_output_10_5_5.zip?dl=1) (80 MB).
+- beta's=10, stellar masses=21, stellar ages=5: [.zip file](https://www.dropbox.com/s/xohdcp5tylazsrg/STARS_library_output_10_5_5.zip?dl=1) (35 MB).
 
-- NUM_BETA=100, NUM_MASS=2, NUM_AGE=2: [.zip file](https://www.dropbox.com/s/l43ey32hgyqszjl/STARS_library_output_1000_2_2.zip?dl=1) (0.9 GB).
+- beta's=1000, stellar masses=6, stellar ages=2: [.zip file](https://www.dropbox.com/s/wbanglobc1xu385/STARS_library_output_1000_2_2.zip?dl=1) (324 MB).
 
-- NUM_BETA=100, NUM_MASS=12, NUM_AGE=12: [.zip file](https://www.dropbox.com/s/bh1skrn5szrt87a/STARS_library_output_100_12_12.zip?dl=1) (5 GB).
+- beta's=100, stellar masses=56, stellar ages=12: [.zip file](https://www.dropbox.com/s/uibocgirikcw11s/STARS_library_output_100_12_12.zip?dl=1) (2.4 GB).
 
 (3) One can retrieve dM/dt's for any particular values of (stellar mass, stellar age, impact parameter), either at the command line or via a list in a file.
 
@@ -44,7 +44,7 @@ OR, to install requiements via pip:
 
 ### Initialize interpolated library:
 
-`python STARS_Library.py`
+`python STARS_library.py`
 
 This creates an interpolated library in `output/`. 
 The input and output directories and the parameters of the interpolation are set in `STARS.config`:
@@ -61,7 +61,7 @@ The input and output directories and the parameters of the interpolation are set
 
 ### Retrieve a single dM/dt:
 
-`python STARS_Library.py -r 1.0 0.0 2.0`
+`python STARS_library.py -r 1.0 0.0 2.0`
 
 This retrieves a dM/dt for a star with 
 
@@ -81,7 +81,7 @@ This command line option is appropriate for retrieving a single interpolated mod
 
 ### Retrieve a list of dM/dt's:
 
-`python STARS_Library.py -g`
+`python STARS_library.py -g`
 
 This retrieves a list of dM/dt's from `RETRIEVE.par`.
 
@@ -97,15 +97,22 @@ Errors will be thrown if you request a dM/dt from a stellar mass, stellar age, o
 
 If you are renaming the default output directory, make sure that output directory (`output/` by default) is completely empty on the first initialize.
 
+The dM/dt's in the .dat files were constructed with 200 data points per log interval in time in order to keep the final size of the interpolated library small. Please contact us if you would like dM/dt files that are more finely spaced in time.
+
 ## Images
 
-Volume rendering of FLASH simulation of tidal disruption of beta=1 encounter of 1 Msun ZAMS star with 10^6 Msun BH:
+Volume rendering of a 1 Msun ZAMS star in a beta=1 encounter with a 10^6 Msun BH:
 
-<img src="https://people.ucsc.edu/~lawsmith/theme/images/image1.png" width="500" alt="Simulation snapshot">
+![Simulation snapshot](https://people.ucsc.edu/~lawsmith/theme/images/image1.png)
+<!-- <img src="https://people.ucsc.edu/~lawsmith/theme/images/image1.png" width="800" alt="Simulation snapshot"> -->
 
 dM/dt's from STARS_library on a small grid:
 
-<img src="https://people.ucsc.edu/~lawsmith/theme/images/mdots.png" width="500" alt="dM/dt's">
+![dM/dt's](https://people.ucsc.edu/~lawsmith/theme/images/mdots.png)
+<!-- <img src="https://people.ucsc.edu/~lawsmith/theme/images/mdots.png" width="800" alt="dM/dt's"> -->
 
 ## Reference
 Please cite our paper if you use this repository: LINK TO ADS.
+
+## Issues / requests
+If you encounter any issues, or if you have suggestions for improvements that would be useful to you, please do not hesitate to let us know. You can reach Jamie Law-Smith at <lawsmith@ucsc.edu>. 
