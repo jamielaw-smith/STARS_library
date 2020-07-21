@@ -4,10 +4,10 @@ import shutil
 from src.interpolation import beta_interpolate, mass_interpolate, age_interpolate
 
 def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retrieval_output_dir):
-    # check if mass is outside [0.3, 3]. also if age is outside of [0,1]
+    # check if mass is outside [0.1, 10.0]. also if age is outside of [0,1]
     # todo this is hard-coded, should probably check for mass range dynamically
-    if not (0.3 <= mass <= 3.0):
-        raise Exception('ERROR: mass must be in [0.3, 3]')
+    if not (0.1 <= mass <= 10.0):
+        raise Exception('ERROR: mass must be in [0.1, 10.0]')
     if not (0.0 <= age <= 1.0):
         raise Exception('ERROR: age must be in [0, 1]')
 
@@ -252,6 +252,5 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
             
 
     # delete scratch directory tree
-    # comment out for debug
     if os.path.exists(retrieval_scratch_dir):
         shutil.rmtree(retrieval_scratch_dir)
