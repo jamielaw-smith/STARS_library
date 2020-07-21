@@ -99,18 +99,6 @@ If you are renaming the default output directory, make sure that output director
 
 The dM/dt's in the .dat files were constructed with 200 data points per log interval in time in order to keep the final size of the interpolated library small. Please contact us if you would like dM/dt files that are more finely spaced in time.
 
-## Images
-
-Volume rendering of a 1 Msun ZAMS star in a beta=1 encounter with a 10^6 Msun BH:
-
-![Simulation snapshot](https://people.ucsc.edu/~lawsmith/theme/images/image1.png)
-<!-- <img src="https://people.ucsc.edu/~lawsmith/theme/images/image1.png" width="800" alt="Simulation snapshot"> -->
-
-dM/dt's from STARS_library on a small grid:
-
-![dM/dt's](https://people.ucsc.edu/~lawsmith/theme/images/mdots.png)
-<!-- <img src="https://people.ucsc.edu/~lawsmith/theme/images/mdots.png" width="800" alt="dM/dt's"> -->
-
 ## Reference
 Please cite our paper if you use this repository: LINK TO ADS.
 
