@@ -101,7 +101,6 @@ class STARS_library:
         self.num_interp_age = int(config.get('interpolation', 'NUM_AGE_INTERP_POINTS'))
 
         # Check if initialized, if not, initialize first
-        # JLS added this as quick fix b/c below fails if ../output/ doesn't exist
         if not os.path.exists(self.output_dir):
             os.makedirs(self.output_dir)
         
@@ -147,7 +146,6 @@ if __name__ == "__main__":
     2) Run the command:
     `python STARS_library.py -g`
     """
-    #start = tm.time()
 
     stars_lib = STARS_library()
     parser = stars_lib.add_options(usage=useagestring)
@@ -168,9 +166,3 @@ if __name__ == "__main__":
         mass, age, beta = np.loadtxt(stars_lib.retrieval_grid_file, skiprows=1, unpack=True)
         for m, a, b in zip(mass, age, beta):
             stars_lib.retrieve(m, a, b)
-
-    #end = tm.time()
-    #duration = (end - start)
-    #print("\n********* start DEBUG ***********")
-    #print("STARS_library `retrieve` execution time: %s" % duration)
-    #print("********* end DEBUG ***********\n")

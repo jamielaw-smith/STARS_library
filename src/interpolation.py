@@ -8,7 +8,6 @@ def sort_betas_key(f):
 
 def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, sim_beta_files=None, beta_arr=None):
 
-    # DC HACK - just trying to preserve original functionality for now
     current_sub_dir = current_sub_dir + "/"
     current_dmdt_dir = input_dir + current_sub_dir
 
@@ -218,9 +217,6 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
         a = [f for f in os.listdir(input_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
     a.sort(key=sort_betas_key)
 
-    # this will select 11 betas from lowest to highest. spaced by log from logsapce
-    # lo_interp_beta_files = a[::10]
-    # lo_interp_beta_files.append(a[-1])
     lo_interp_beta_files = a
     lo_interp_betas = [float(b[:-4]) for b in lo_interp_beta_files]
 
@@ -233,7 +229,6 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
 
         # It is assumed that there are different files for each beta
         # (such as 2.500.dat for beta = 2.5)
-        # The first row is energy, the second is dmde.
 
         # dictionaries with gamma's as keys.
         Beta_slope = []  # {gammas[0]: [], gammas[1]: []}
@@ -251,7 +246,6 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
         ipeak = {}
         mapped_time = {}
         # get dmdt and t for the lowest beta value
-        # energy & dmde (cgs)
         if input_dir == None:
             time['lo'], dmdt['lo'] = np.genfromtxt(output_dir + dmdt_sub_dirs[0] + "/" + low_interp_beta_file,
                                                    skip_header=1, unpack=True)
@@ -281,9 +275,7 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
             else:
                 a = [f for f in os.listdir(input_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
             a.sort(key=sort_betas_key)
-            # this will select 11 betas from lowest to highest. spaced by log from logsapce
-            # hi_interp_beta_files = a[::10]
-            # hi_interp_beta_files.append(a[-1])
+
             hi_interp_beta_files = a
             hi_interp_betas = [float(b[:-4]) for b in hi_interp_beta_files]
 
@@ -355,7 +347,6 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
                 else:
                     slope = ((dmdt['hi'][j] - dmdtinterp) / (Sim_mass[i] - Sim_mass[i - 1]))
 
-                # this is really Mass_slope now?
                 Beta_slope[-1].append(slope)
 
                 yinter1 = (dmdt[nointerp][j] - Beta_slope[-1][j] * Sim_mass[i - 1])
@@ -387,7 +378,6 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
         for i in range(len(mass_arr)):
             if interp_index_high[i] == interp_index_low[i]:
                 # already have this mass
-                # probably already wrote this mass directory in interpolated_dmdts directory
                 pass
             else:
                 dmdtinterpolated = np.array([
@@ -428,7 +418,6 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
                 if not os.path.exists(output_dir + savesmalldir):
                     os.makedirs(output_dir + savesmalldir)
 
-                # todo maybe need to assign beta string earlier above?
                 beta_float = round(lo_interp_betas[z] + ((mass_arr[i] - Sim_mass[0]) / (Sim_mass[-1] - Sim_mass[0])) \
                                    * (hi_interp_betas[z] - lo_interp_betas[z]), 3)
 
@@ -455,9 +444,7 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
     else:
         a = [f for f in os.listdir(input_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
     a.sort(key=sort_betas_key)
-    # this will select 11 betas from lowest to highest. spaced by log from logsapce
-    # lo_interp_beta_files = a[::10]
-    # lo_interp_beta_files.append(a[-1])
+
     lo_interp_beta_files = a
     lo_interp_betas = [float(b[:-4]) for b in lo_interp_beta_files]
 
@@ -468,20 +455,12 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
     # for z, low_sim_beta_file in enumerate(lo_sim_beta_files):
     for z, low_interp_beta_file in enumerate(lo_interp_beta_files):
 
-        # for x, dmdtsmalldir in enumerate(dmdtsmalldirs):
-        # if x+1 == len(dmdtsmalldirs):
-        # at max mass
-        # probably already wrote this mass directory in interpolated_dmdts directory
-        #    print('here1')
-        #    break
-
         # dmdtdir = dmdtbigdir + dmdtsmalldir
 
         # ------ DIRECTORY PARAMETERS -------
 
         # It is assumed that there are different files for each beta
         # (such as 2.500.dat for beta = 2.5)
-        # The first row is energy, the second is dmde.
 
         # dictionaries with gamma's as keys.
         Beta_slope = []  # {gammas[0]: [], gammas[1]: []}
@@ -531,9 +510,7 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
             else:
                 a = [f for f in os.listdir(input_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
             a.sort(key=sort_betas_key)
-            # this will select 11 betas from lowest to highest. spaced by log from logsapce
-            # hi_interp_beta_files = a[::10]
-            # hi_interp_beta_files.append(a[-1])
+
             hi_interp_beta_files = a
             hi_interp_betas = [float(b[:-4]) for b in hi_interp_beta_files]
             # hi_sim_betas = [float(b[:-4]) for b in hi_sim_beta_files]
@@ -606,13 +583,11 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
                 dmdtinterp = func(mapped_time[nointerp][j])
 
                 if interp == 'hi':
-                    # todo probably need to edit this for mass
                     # slope = ((dmdtinterp - dmdt['lo'][j]) / (Sim_beta[i] - Sim_beta[i - 1]))
                     slope = ((dmdtinterp - dmdt['lo'][j]) / (Sim_age[i] - Sim_age[i - 1]))
                 else:
                     slope = ((dmdt['hi'][j] - dmdtinterp) / (Sim_age[i] - Sim_age[i - 1]))
 
-                # this is really Mass_slope now?
                 Beta_slope[-1].append(slope)
 
                 yinter1 = (dmdt[nointerp][j] - Beta_slope[-1][j] * Sim_age[i - 1])
@@ -644,17 +619,11 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
                     beta_interp = True
                     break
 
-        # if not os.path.exists(savebigdir + dmdtsmalldir):
-        #    os.makedirs(savebigdir + dmdtsmalldir)
 
         for i in range(len(age_arr)):
             if interp_index_high[i] == interp_index_low[i]:
                 # already have this mass
-                # probably already wrote this mass directory in interpolated_dmdts directory
                 pass
-                # time, dmdt = np.genfromtxt(dmdtdir + '{0:f}'.format(beta_arr[i])[:5]+ '.dat', skip_header=1, unpack=True)
-                # np.savetxt(savebigdir + dmdtsmalldir + '{0:f}'.format(beta_arr[i])[:5]+ '.dat',
-                #            np.transpose([time, dmdt]))
             else:
 
                 dmdtinterpolated = np.array([
@@ -695,7 +664,6 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
                 if not os.path.exists(output_dir + savesmalldir):
                     os.makedirs(output_dir + savesmalldir)
 
-                # todo maybe need to assign beta string earlier above?
                 beta_float = round(lo_interp_betas[z] + ((age_arr[i] - Sim_age[0]) / (Sim_age[-1] - Sim_age[0])) \
                                    * (hi_interp_betas[z] - lo_interp_betas[z]), 3)
 

@@ -5,7 +5,6 @@ from src.interpolation import beta_interpolate, mass_interpolate, age_interpolat
 
 def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retrieval_output_dir):
     # check if mass is outside [0.1, 10.0]. also if age is outside of [0,1]
-    # todo this is hard-coded, should probably check for mass range dynamically
     if not (0.1 <= mass <= 10.0):
         raise Exception('ERROR: mass must be in [0.1, 10.0]')
     if not (0.0 <= age <= 1.0):
@@ -147,11 +146,10 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
         # check if have this age
         if len(t_array_lower_mass[t_array_lower_mass == age]) != 0:
-            # TODO this is inefficient
             # copy to retrieval_scratch
             if not os.path.exists(retrieval_scratch_dir):
                 os.makedirs(retrieval_scratch_dir)
-            # todo doesn't work if already exists
+
             shutil.copytree(retrieval_input_dir + outputdirs[(m_array == lower_m) & (t_array == age)][0], 
                             retrieval_scratch_dir + outputdirs[(m_array == lower_m) & (t_array == age)][0])
 
@@ -176,11 +174,11 @@ def retrieval(mass, age, beta, retrieval_input_dir, retrieval_scratch_dir, retri
 
         # check if have this age
         if len(t_array_upper_mass[t_array_upper_mass == age]) != 0:
-            # TODO this is inefficient
+
             # copy to retrieval_scratch
             if not os.path.exists(retrieval_scratch_dir):
                 os.makedirs(retrieval_scratch_dir)
-            # todo doesn't work if already exists
+
             shutil.copytree(retrieval_input_dir + outputdirs[(m_array == upper_m) & (t_array == age)][0], 
                             retrieval_scratch_dir + outputdirs[(m_array == upper_m) & (t_array == age)][0])
 
