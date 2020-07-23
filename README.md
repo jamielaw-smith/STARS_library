@@ -102,7 +102,7 @@ The dM/dt's in the .dat files were constructed with 200 data points per log inte
 The columns of the .dat files are t (day), dm/dt (M_sun/yr).
 
 ## Reference
-Please cite our paper if you use this repository: https://arxiv.org/abs/2007.10996.
+Please cite our paper if you use this repository: https://ui.adsabs.harvard.edu/abs/2020arXiv200710996L.
 
 ## Issues / requests
 If you encounter any issues, or if you have suggestions for improvements that would be useful to you, please do not hesitate to let us know. You can reach Jamie Law-Smith at <lawsmith@ucsc.edu>. 
