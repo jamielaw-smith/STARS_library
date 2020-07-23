@@ -99,6 +99,8 @@ If you are renaming the default output directory, make sure that output director
 
 The dM/dt's in the .dat files were constructed with 200 data points per log interval in time in order to keep the final size of the interpolated library small. Please contact us if you would like dM/dt files that are more finely spaced in time.
 
+The columns of the .dat files are t (day), dm/dt (M_sun/yr).
+
 ## Reference
 Please cite our paper if you use this repository: https://arxiv.org/abs/2007.10996.
 
