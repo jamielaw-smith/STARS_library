@@ -100,7 +100,7 @@ If you are renaming the default output directory, make sure that output director
 The dM/dt's in the .dat files were constructed with 200 data points per log interval in time in order to keep the final size of the interpolated library small. Please contact us if you would like dM/dt files that are more finely spaced in time.
 
 ## Reference
-Please cite our paper if you use this repository: LINK TO ADS.
+Please cite our paper if you use this repository: https://arxiv.org/abs/2007.10996.
 
 ## Issues / requests
 If you encounter any issues, or if you have suggestions for improvements that would be useful to you, please do not hesitate to let us know. You can reach Jamie Law-Smith at <lawsmith@ucsc.edu>. 
