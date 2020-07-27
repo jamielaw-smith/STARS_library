@@ -29,6 +29,8 @@ Pre-packaged interpolated grids with different spacings are also available:
 
 `cd STARS_library`
 
+The requirements are minimal (roughly python 3, astropy, scipy, numpy), so you may not need the step below.
+
 To install the requirements in a new conda environment:
 
 `conda env create -f environment.yml`
