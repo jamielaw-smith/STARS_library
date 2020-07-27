@@ -103,9 +103,9 @@ The dM/dt's in the .dat files were constructed with 200 data points per log inte
 
 The columns of the .dat files are t (day), dm/dt (M_sun/yr). Time is relative to first pericenter passage.
 
-The library uses a 10^6 M_sun black hole. One can scale the dM/dt's with BH mass for nonrelativistic disruptions (r_p > 10 r_g) as follows (Eq. 3,4 in paper): $dM/dt \propto M_{\rm BH}^{-1/2}$, $t \propto M_{\rm BH}^{1/2}$. 
+The library uses a $10^6 M_\sun$ black hole. One can scale the dM/dt's with BH mass for nonrelativistic disruptions ($r_p > 10 r_g$) as follows (Eq. 3,4 in paper): $dM/dt \propto M_{\rm BH}^{-1/2}$, $t \propto M_{\rm BH}^{1/2}$. 
 
-One can also extend to other stellar masses by scaling dM/dt's from stars with similar density profiles. For example, one can extend below 0.1 M_sun as these stars all have approximately $\gamma=5/3$ stellar structures. The scalings with stellar mass and radius are (Eq. 3,4 in paper):
+One can also extend to other stellar masses by scaling dM/dt's from stars with similar density profiles. For example, one can extend below $0.1 M_\sun$ as these stars all have approximately $\gamma=5/3$ stellar structures. The scalings with stellar mass and radius are (Eq. 3,4 in paper):
 $dM/dt \propto M_\star^{2} R_\star^{-3/2}$,
 $t \propto M_\star^{-1} R_\star^{3/2}$.
 
