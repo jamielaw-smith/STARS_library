@@ -131,7 +131,7 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, 
 
     interp_index_low = [0 for i in beta_arr]
     interp_index_high = [0 for i in beta_arr]
-    for i, b in enumerate(beta_arr):#range(len(beta_arr)):
+    for i, b in enumerate(beta_arr):
         for j in range(len(Sim_beta)):
             if b == Sim_beta[j]:
                 # no need to interp, already have dmdt & t for this beta
@@ -226,19 +226,14 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
 
     for z, low_interp_beta_file in enumerate(lo_interp_beta_files):
         # ------ DIRECTORY PARAMETERS -------
+        Beta_slope = []
+        Beta_yinter = []
 
-        # It is assumed that there are different files for each beta
-        # (such as 2.500.dat for beta = 2.5)
-
-        # dictionaries with gamma's as keys.
-        Beta_slope = []  # {gammas[0]: [], gammas[1]: []}
-        Beta_yinter = []  # {gammas[0]: [], gammas[1]: []}
-
-        Mapped_time = []  # {gammas[0]: [], gammas[1]: []}
+        Mapped_time = []
         # for converting back from mapped time to actual times and doing
         # interpolation in actual time
-        Premaptime = []  # {gammas[0]: [], gammas[1]: []}
-        Premapdmdt = []  # {gammas[0]: [], gammas[1]: []}
+        Premaptime = []
+        Premapdmdt = []
 
         # ----- CREATE INTERPOLATION FUNCTIONS; FIND SLOPES & YINTERs -----
         time = {}
@@ -280,7 +275,8 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
             hi_interp_betas = [float(b[:-4]) for b in hi_interp_beta_files]
 
             if len(hi_interp_beta_files) != len(lo_interp_beta_files):
-                print('ERROR not same number of betas. Not sure what to do?')
+                raise Exception('ERROR: not same number of betas in each directory.\
+                                Possibly because did not clear output directory before making new interpolated library.')
 
             if input_dir == None:
                 time['hi'], dmdt['hi'] = np.genfromtxt(output_dir + dmdt_sub_dirs[i] + "/" + hi_interp_beta_files[z],
@@ -360,7 +356,7 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
         interp_index_low = [0 for i in mass_arr]
         interp_index_high = [0 for i in mass_arr]
 
-        for i, b in enumerate(mass_arr):  # range(len(beta_arr)):
+        for i, b in enumerate(mass_arr):
             for j in range(len(Sim_mass)):
                 if b == Sim_mass[j]:
                     # no need to interp, already have dmdt & t for this beta
@@ -437,7 +433,6 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
     dmdt_sub_dirs = [t1_dir, t2_dir]
 
     # --------- GET SIMULATION BETAS -----------------
-
     # find lo_interp_beta_files
     if input_dir == None:
         a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[0]) if not f.startswith('.')]
@@ -452,25 +447,15 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
     if age_arr == None:
         age_arr = np.linspace(Sim_age[0], Sim_age[-1], num=num_interp_points)
 
-    # for z, low_sim_beta_file in enumerate(lo_sim_beta_files):
     for z, low_interp_beta_file in enumerate(lo_interp_beta_files):
-
-        # dmdtdir = dmdtbigdir + dmdtsmalldir
-
         # ------ DIRECTORY PARAMETERS -------
-
-        # It is assumed that there are different files for each beta
-        # (such as 2.500.dat for beta = 2.5)
-
-        # dictionaries with gamma's as keys.
-        Beta_slope = []  # {gammas[0]: [], gammas[1]: []}
-        Beta_yinter = []  # {gammas[0]: [], gammas[1]: []}
-        # Sim_beta = [] #{gammas[0]: [], gammas[1]: []}
-        Mapped_time = []  # {gammas[0]: [], gammas[1]: []}
+        Beta_slope = []
+        Beta_yinter = []
+        Mapped_time = []
         # for converting back from mapped time to actual times and doing
         # interpolation in actual time
-        Premaptime = []  # {gammas[0]: [], gammas[1]: []}
-        Premapdmdt = []  # {gammas[0]: [], gammas[1]: []}
+        Premaptime = []
+        Premapdmdt = []
 
         # ----- CREATE INTERPOLATION FUNCTIONS; FIND SLOPES & YINTERs -----
         time = {}
@@ -501,10 +486,7 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
         Premaptime.append(np.copy(time['lo']))
         Premapdmdt.append(np.copy(dmdt['lo']))
 
-        # for i in range(1, len(Sim_beta)):
         for i in range(1, len(Sim_age)):
-            # hi_sim_beta_files = os.listdir(dmdtbigdir + dmdtsmalldirs[i])
-            # hi_sim_beta_files.sort()
             if input_dir == None:
                 a = [f for f in os.listdir(output_dir + dmdt_sub_dirs[i]) if not f.startswith('.')]
             else:
@@ -513,14 +495,11 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
 
             hi_interp_beta_files = a
             hi_interp_betas = [float(b[:-4]) for b in hi_interp_beta_files]
-            # hi_sim_betas = [float(b[:-4]) for b in hi_sim_beta_files]
 
             if len(hi_interp_beta_files) != len(lo_interp_beta_files):
                 raise Exception('ERROR: not same number of betas in each directory.\
                                 Possibly because did not clear output directory before making new interpolated library.')
 
-            # time['hi'], dmdt['hi'] = np.genfromtxt(dmdtdir + sim_beta_files[i], skip_header=1, unpack=True)
-            # time['hi'], dmdt['hi'] = np.genfromtxt(dmdtbigdir + dmdtsmalldirs[x+1] + hi_sim_beta_files[i], skip_header=1, unpack=True)
             if input_dir == None:
                 time['hi'], dmdt['hi'] = np.genfromtxt(output_dir + dmdt_sub_dirs[i] + "/" + hi_interp_beta_files[z],
                                                        skip_header=1, unpack=True)
@@ -583,7 +562,6 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
                 dmdtinterp = func(mapped_time[nointerp][j])
 
                 if interp == 'hi':
-                    # slope = ((dmdtinterp - dmdt['lo'][j]) / (Sim_beta[i] - Sim_beta[i - 1]))
                     slope = ((dmdtinterp - dmdt['lo'][j]) / (Sim_age[i] - Sim_age[i - 1]))
                 else:
                     slope = ((dmdt['hi'][j] - dmdtinterp) / (Sim_age[i] - Sim_age[i - 1]))
@@ -598,13 +576,9 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
             time['lo'] = np.copy(time['hi'])
             dmdt['lo'] = np.copy(dmdt['hi'])
 
-        # interp_index_low = [0 for i in beta_arr]
-        # interp_index_high = [0 for i in beta_arr]
         interp_index_low = [0 for i in age_arr]
         interp_index_high = [0 for i in age_arr]
-        # for i, b in enumerate(beta_arr):#range(len(beta_arr)):
-        for i, b in enumerate(age_arr):  # range(len(beta_arr)):
-            # for j in range(len(Sim_beta)):
+        for i, b in enumerate(age_arr):
             for j in range(len(Sim_age)):
                 if b == Sim_age[j]:
                     # no need to interp, already have dmdt & t for this beta

@@ -2,7 +2,6 @@ name: stars_lib
 channels:
   - defaults
 dependencies:
-  - astropy=4.0.1.post1=py37h1de35cc_0
   - attrs=19.3.0=py_0
   - blas=1.0=mkl
   - ca-certificates=2020.1.1=0
@@ -19,8 +18,6 @@ dependencies:
   - libffi=3.2.1=h475c297_4
   - libgfortran=3.0.1=h93005f0_2
   - libpng=1.6.37=ha441bb4_0
-  - matplotlib=3.1.3=py37_0
-  - matplotlib-base=3.1.3=py37h9aa3819_0
   - mkl=2019.4=233
   - mkl-service=2.3.0=py37hfbe908c_0
   - mkl_fft=1.0.15=py37h5e564d8_0
@@ -38,8 +35,6 @@ dependencies:
   - pyparsing=2.4.6=py_0
   - pytest=5.4.1=py37_0
   - pytest-arraydiff=0.3=py37h39e3cac_0
-  - pytest-astropy=0.8.0=py_0
-  - pytest-astropy-header=0.1.2=py_0
   - pytest-doctestplus=0.5.0=py_0
   - pytest-openfiles=0.4.0=py_0
   - pytest-remotedata=0.3.2=py37_0
