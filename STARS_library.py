@@ -127,9 +127,9 @@ if __name__ == "__main__":
     `python STARS_library.py -r {mass} {age} {beta}`
     
     retrieve params:
-        mass [M_sun]:                               0.1 - 10.0
-        age [fractional; 0 == ZAMS, 1.0 == TAMS]:   0.0 - 1.0
-        beta [impact parameter]:                    varies
+        mass [M_sun]: 0.1 - 10.0
+        age [fractional; 0.0=ZAMS, 1.0=min(10 Gyr, TAMS)]: 0.0 - 1.0
+        beta [impact parameter]: varies (prints range if outside it)
     
     
     
