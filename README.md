@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/254953888.svg)](https://zenodo.org/badge/latestdoi/254953888)
+
 # STARS_library
 
 STARS: stellar TDEs (tidal disruption events) with abundances and realistic structures
