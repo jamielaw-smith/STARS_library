@@ -8,17 +8,17 @@ STARS: stellar TDEs (tidal disruption events) with abundances and realistic stru
 
 STARS_library is an interpolated grid of fallback rates to the black hole (dM/dt) from 3D hydrodynamical simulations of tidal disruption events (TDEs) using realistic stellar models. Possible use cases are:
 
-(1) One can download the original dM/dt's from Law-Smith+2020a here (note these also exist in the `input/` folder of this repository): [.zip file](https://www.dropbox.com/s/k14hfp88n5e4kk0/STARS_library_input.zip?dl=1) (3 MB).
+(1) One can download the original dM/dt's from Law-Smith+2020a here (note these also exist in the `input/` folder of this repository): [.zip file](https://www.dropbox.com/s/k14hfp88n5e4kk0/STARS_library_input.zip?dl=1) (2 MB).
 
 (2) One can create an interpolated library of dM/dt's from these simulations, to arbitrary spacing in stellar mass, stellar age, and impact parameter (see below). 
 
 Pre-packaged interpolated grids with different spacings are also available:
 
-- betas=10, stellar masses=21, stellar ages=5: [.zip file](https://www.dropbox.com/s/xohdcp5tylazsrg/STARS_library_output_10_5_5.zip?dl=1) (35 MB).
+- betas=10, stellar masses=21, stellar ages=5: [.zip file](https://www.dropbox.com/s/xohdcp5tylazsrg/STARS_library_output_10_5_5.zip?dl=1) (26 MB).
 
-- betas=1000, stellar masses=6, stellar ages=2: [.zip file](https://www.dropbox.com/s/wbanglobc1xu385/STARS_library_output_1000_2_2.zip?dl=1) (324 MB).
+- betas=1000, stellar masses=6, stellar ages=2: [.zip file](https://www.dropbox.com/s/wbanglobc1xu385/STARS_library_output_1000_2_2.zip?dl=1) (273 MB).
 
-- betas=100, stellar masses=56, stellar ages=12: [.zip file](https://www.dropbox.com/s/uibocgirikcw11s/STARS_library_output_100_12_12.zip?dl=1) (2.4 GB).
+- betas=100, stellar masses=56, stellar ages=12: [.zip file](https://www.dropbox.com/s/uibocgirikcw11s/STARS_library_output_100_12_12.zip?dl=1) (1.6 GB).
 
 (3) One can retrieve dM/dt's for any particular values of (stellar mass, stellar age, impact parameter), either at the command line or via a list in a file (see below).
 
