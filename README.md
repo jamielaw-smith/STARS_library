@@ -116,7 +116,7 @@ Please cite both
 
 (1) the paper: https://ui.adsabs.harvard.edu/abs/2020arXiv200710996L
 
-(2) the DOI for this tool: https://zenodo.org/badge/latestdoi/254953888 (can click Export BibTeX)
+(2) the DOI for this tool: https://doi.org/10.5281/zenodo.4048880 (can click Export BibTeX)
 
 if you use this repository.
 
