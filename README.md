@@ -112,7 +112,13 @@ $dM/dt \propto M_\star^{2} R_\star^{-3/2}$,
 $t \propto M_\star^{-1} R_\star^{3/2}$.
 
 ## Reference
-Please cite our paper if you use this repository: https://ui.adsabs.harvard.edu/abs/2020arXiv200710996L.
+Please cite both 
+
+(1) the paper: https://ui.adsabs.harvard.edu/abs/2020arXiv200710996L
+
+(2) the DOI for this tool: https://zenodo.org/badge/latestdoi/254953888 (can click Export BibTeX)
+
+if you use this repository.
 
 ## Issues / requests
 If you encounter any issues, or if you have suggestions for improvements that would be useful to you, please do not hesitate to let us know. You can reach Jamie Law-Smith at <lawsmith@ucsc.edu>. 
