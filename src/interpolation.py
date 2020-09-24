@@ -38,11 +38,11 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, 
 
     time['lo'] = np.array([
         time['lo'][:ipeak['lo']],
-        time['lo'][ipeak['lo']:]])  # peak in array 2
+        time['lo'][ipeak['lo']:]], dtype=object)  # peak in array 2
 
     dmdt['lo'] = np.array([
         dmdt['lo'][:ipeak['lo']],
-        dmdt['lo'][ipeak['lo']:]])  # peak in array 2
+        dmdt['lo'][ipeak['lo']:]], dtype=object)  # peak in array 2
 
     Premaptime.append(np.copy(time['lo']))
     Premapdmdt.append(np.copy(dmdt['lo']))
@@ -58,9 +58,9 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, 
         # split time_hi and dmdt_hi into pre-peak and post-peak array
         # peak in 2nd array
         time['hi'] = np.array([time['hi'][:ipeak['hi']],
-                               time['hi'][ipeak['hi']:]])
+                               time['hi'][ipeak['hi']:]], dtype=object)
         dmdt['hi'] = np.array([dmdt['hi'][:ipeak['hi']],
-                               dmdt['hi'][ipeak['hi']:]])
+                               dmdt['hi'][ipeak['hi']:]], dtype=object)
         # will contain time/dmdt arrays
         # (split into pre & post peak times/dmdts)
         # for each beta value
@@ -164,7 +164,7 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, 
                                 Beta_yinter[interp_index_low[i]][0] +
                                 Beta_slope[interp_index_low[i]][0] * beta_arr[i],
                                 Beta_yinter[interp_index_low[i]][1] +
-                                Beta_slope[interp_index_low[i]][1] * beta_arr[i]])
+                                Beta_slope[interp_index_low[i]][1] * beta_arr[i]], dtype=object)
 
                             # map mapped_times back to actual times, requires interpolation
                             # in time
@@ -192,7 +192,7 @@ def beta_interpolate(input_dir, output_dir, current_sub_dir, num_interp_points, 
                     (Sim_beta[interp_index_high[i]] -
                      Sim_beta[interp_index_low[i]]))
 
-            timeinterpolated = np.array(timeinterpolated)
+            timeinterpolated = np.array(timeinterpolated, dtype=object)
             
             beta_string = '{0:f}'.format(beta_arr[i])[:5]
 
@@ -252,10 +252,10 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
         # split time['lo'] & dmdt['lo'] into pre-peak and post-peak array
         time['lo'] = np.array([
             time['lo'][:ipeak['lo']],
-            time['lo'][ipeak['lo']:]])  # peak in array 2
+            time['lo'][ipeak['lo']:]], dtype=object)  # peak in array 2
         dmdt['lo'] = np.array([
             dmdt['lo'][:ipeak['lo']],
-            dmdt['lo'][ipeak['lo']:]])  # peak in array 2
+            dmdt['lo'][ipeak['lo']:]], dtype=object)  # peak in array 2
 
         # will contain time/dmdt arrays
         # (split into pre & post peak times/dmdts)
@@ -289,9 +289,9 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
             # split time_hi and dmdt_hi into pre-peak and post-peak array
             # peak in 2nd array
             time['hi'] = np.array([time['hi'][:ipeak['hi']],
-                                   time['hi'][ipeak['hi']:]])
+                                   time['hi'][ipeak['hi']:]], dtype=object)
             dmdt['hi'] = np.array([dmdt['hi'][:ipeak['hi']],
-                                   dmdt['hi'][ipeak['hi']:]])
+                                   dmdt['hi'][ipeak['hi']:]], dtype=object)
             # will contain time/dmdt arrays
             # (split into pre & post peak times/dmdts)
             # for each beta value
@@ -380,7 +380,7 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
                     Beta_yinter[interp_index_low[i]][0] +
                     Beta_slope[interp_index_low[i]][0] * mass_arr[i],
                     Beta_yinter[interp_index_low[i]][1] +
-                    Beta_slope[interp_index_low[i]][1] * mass_arr[i]])
+                    Beta_slope[interp_index_low[i]][1] * mass_arr[i]], dtype=object)
 
                 # map mapped_times back to actual times, requires interpolation
                 # in time
@@ -408,7 +408,7 @@ def mass_interpolate(output_dir, age_string, m1, m2, num_interp_points, input_di
                         (Sim_mass[interp_index_high[i]] -
                          Sim_mass[interp_index_low[i]]))
 
-                timeinterpolated = np.array(timeinterpolated)
+                timeinterpolated = np.array(timeinterpolated, dtype=object)
 
                 savesmalldir = 'm' + str(round(mass_arr[i], 3))[:5] + '_' + age_string + '/'
                 if not os.path.exists(output_dir + savesmalldir):
@@ -475,10 +475,10 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
         # split time['lo'] & dmdt['lo'] into pre-peak and post-peak array
         time['lo'] = np.array([
             time['lo'][:ipeak['lo']],
-            time['lo'][ipeak['lo']:]])  # peak in array 2
+            time['lo'][ipeak['lo']:]], dtype=object)  # peak in array 2
         dmdt['lo'] = np.array([
             dmdt['lo'][:ipeak['lo']],
-            dmdt['lo'][ipeak['lo']:]])  # peak in array 2
+            dmdt['lo'][ipeak['lo']:]], dtype=object)  # peak in array 2
 
         # will contain time/dmdt arrays
         # (split into pre & post peak times/dmdts)
@@ -512,9 +512,9 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
             # split time_hi and dmdt_hi into pre-peak and post-peak array
             # peak in 2nd array
             time['hi'] = np.array([time['hi'][:ipeak['hi']],
-                                   time['hi'][ipeak['hi']:]])
+                                   time['hi'][ipeak['hi']:]], dtype=object)
             dmdt['hi'] = np.array([dmdt['hi'][:ipeak['hi']],
-                                   dmdt['hi'][ipeak['hi']:]])
+                                   dmdt['hi'][ipeak['hi']:]], dtype=object)
             # will contain time/dmdt arrays
             # (split into pre & post peak times/dmdts)
             # for each beta value
@@ -604,7 +604,7 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
                     Beta_yinter[interp_index_low[i]][0] +
                     Beta_slope[interp_index_low[i]][0] * age_arr[i],
                     Beta_yinter[interp_index_low[i]][1] +
-                    Beta_slope[interp_index_low[i]][1] * age_arr[i]])
+                    Beta_slope[interp_index_low[i]][1] * age_arr[i]], dtype=object)
 
                 # map mapped_times back to actual times, requires interpolation
                 # in time
@@ -632,7 +632,7 @@ def age_interpolate(output_dir, mass_string, t1, t2, num_interp_points, input_di
                         (Sim_age[interp_index_high[i]] -
                          Sim_age[interp_index_low[i]]))
 
-                timeinterpolated = np.array(timeinterpolated)
+                timeinterpolated = np.array(timeinterpolated, dtype=object)
 
                 savesmalldir = mass_string + '_t' + str(round(age_arr[i], 3))[:5] + '/'
                 if not os.path.exists(output_dir + savesmalldir):
