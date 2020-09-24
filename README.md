@@ -118,7 +118,7 @@ Please cite both
 
 (2) the DOI for this tool: https://doi.org/10.5281/zenodo.4048880 (can click Export BibTeX)
 
-if you use this repository.
+if you use this repository. Thanks!
 
 ## Issues / requests
 If you encounter any issues, or if you have suggestions for improvements that would be useful to you, please do not hesitate to let us know. You can reach Jamie Law-Smith at <lawsmith@ucsc.edu>. 
