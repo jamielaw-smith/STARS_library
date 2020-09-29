@@ -48,10 +48,17 @@ class STARS_library:
 
         zams_masses = []
         tams_masses = []
+
+        zams_mass_vals = []
+        tams_mass_vals = []
+
         for cod in current_output_subdirs:
             dir_name = cod.split("/")[-1]
             age_key = dir_name.split("_")[-1]
             mass_key = dir_name.split("_")[0]
+
+            # need to sort numbers, not strings... X: m10 will sort before m3, which is not what we want
+            mass_value = float(mass_key[1:])
 
             # We're currently not handling the t0.57 case in the mass interpolation, so skip
             if age_key == "t0.57":
@@ -59,13 +66,21 @@ class STARS_library:
 
             if zams_key in dir_name:
                 zams_masses.append(mass_key)
+                zams_mass_vals.append(mass_value)
             else:
                 tams_masses.append(mass_key)
+                tams_mass_vals.append(mass_value)
 
-        model_directories_by_time[zams_key] = sorted(zams_masses)
-        model_directories_by_time[tams_key] = sorted(tams_masses)
+        zmv_i = np.argsort(zams_mass_vals)
+        tmv_i = np.argsort(tams_mass_vals)
+
+        # model_directories_by_time[zams_key] = sorted(zams_masses)
+        # model_directories_by_time[tams_key] = sorted(tams_masses)
+        model_directories_by_time[zams_key] = np.asarray(zams_masses)[zmv_i]
+        model_directories_by_time[tams_key] = np.asarray(tams_masses)[tmv_i]
 
         for age_string, mass_steps in model_directories_by_time.items():
+
             for m1, m2 in zip(mass_steps[:-1], mass_steps[1:]):
                 mass_interpolate(self.output_dir, age_string, m1, m2, self.num_interp_mass)
 
