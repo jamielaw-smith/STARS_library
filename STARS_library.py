@@ -74,8 +74,6 @@ class STARS_library:
         zmv_i = np.argsort(zams_mass_vals)
         tmv_i = np.argsort(tams_mass_vals)
 
-        # model_directories_by_time[zams_key] = sorted(zams_masses)
-        # model_directories_by_time[tams_key] = sorted(tams_masses)
         model_directories_by_time[zams_key] = np.asarray(zams_masses)[zmv_i]
         model_directories_by_time[tams_key] = np.asarray(tams_masses)[tmv_i]
 
