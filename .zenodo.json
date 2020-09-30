@@ -1,10 +1,10 @@
 {
     "description": "STARS: stellar TDEs (tidal disruption events) with abundances and realistic structures", 
     "license": "other-open", 
-    "title": "jamielaw-smith/STARS_library v1.0.2", 
-    "version": "v1.0.2", 
+    "title": "jamielaw-smith/STARS_library v1.0.3", 
+    "version": "v1.0.3", 
     "upload_type": "software", 
-    "publication_date": "2020-09-29", 
+    "publication_date": "2020-09-30", 
     "creators": [
         {
             "name": "Jamie A.P. Law-Smith"
@@ -20,7 +20,7 @@
     "related_identifiers": [
         {
             "scheme": "url", 
-            "identifier": "https://github.com/jamielaw-smith/STARS_library/tree/v1.0.2", 
+            "identifier": "https://github.com/jamielaw-smith/STARS_library/tree/v1.0.3", 
             "relation": "isSupplementTo"
         }, 
         {
