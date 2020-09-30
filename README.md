@@ -2,7 +2,7 @@
 
 # STARS_library
 
-STARS: stellar TDEs (tidal disruption events) with abundances and realistic structures
+STARS: stellar TDEs (tidal disruption events) with abundances and realistic structures.
 
 ## Description
 
@@ -112,11 +112,45 @@ $dM/dt \propto M_\star^{2} R_\star^{-3/2}$,
 $t \propto M_\star^{-1} R_\star^{3/2}$.
 
 ## Reference
-Please cite both 
+Please see the paper for much more detail on the simulations and results. Please cite both 
 
-(1) the paper: https://ui.adsabs.harvard.edu/abs/2020arXiv200710996L
+(1) the paper: https://ui.adsabs.harvard.edu/abs/2020arXiv200710996L. Here is the BibTex entry:
 
-(2) the DOI for this tool: https://doi.org/10.5281/zenodo.4048880 (can click Export BibTeX)
+```
+@ARTICLE{lawsmith2020a,
+       author = {{Law-Smith}, Jamie A.~P. and {Coulter}, David A. and
+         {Guillochon}, James and {Mockler}, Brenna and {Ramirez-Ruiz}, Enrico},
+        title = "{Stellar TDEs with Abundances and Realistic Structures (STARS): Library of Fallback Rates}",
+      journal = {arXiv e-prints},
+     keywords = {Astrophysics - High Energy Astrophysical Phenomena},
+         year = 2020,
+        month = jul,
+          eid = {arXiv:2007.10996},
+        pages = {arXiv:2007.10996},
+archivePrefix = {arXiv},
+       eprint = {2007.10996},
+ primaryClass = {astro-ph.HE},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2020arXiv200710996L},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+```
+
+(2) the DOI for this tool: https://doi.org/10.5281/zenodo.4048880. Here is the BibTex entry:
+
+```
+@misc{lawsmith2020b,
+  author       = {Jamie A. P. Law-Smith and
+                  David A. Coulter and
+                  Brenna Mockler},
+  title        = {jamielaw-smith/STARS\_library v1.0.0},
+  month        = sep,
+  year         = 2020,
+  publisher    = {Zenodo},
+  version      = {v1.0.0},
+  doi          = {10.5281/zenodo.4048880},
+  url          = {https://doi.org/10.5281/zenodo.4048880}
+}
+```
 
 if you use this repository. Thanks!
 
