@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/254953888.svg)](https://zenodo.org/badge/latestdoi/254953888)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4062018.svg)](https://doi.org/10.5281/zenodo.4062018)
 
 # STARS_library
 
@@ -138,7 +138,7 @@ archivePrefix = {arXiv},
 (2) the DOI for this tool: https://doi.org/10.5281/zenodo.4048880. Here is the BibTex entry:
 
 ```
-@misc{lawsmith2020b,
+@misc{jamie_a_p_law_smith_2020_4062018,
   author       = {Jamie A.P. Law-Smith and
                   David A. Coulter and
                   Brenna Mockler},
