@@ -139,16 +139,16 @@ archivePrefix = {arXiv},
 
 ```
 @misc{lawsmith2020b,
-  author       = {Jamie A. P. Law-Smith and
+  author       = {Jamie A.P. Law-Smith and
                   David A. Coulter and
                   Brenna Mockler},
-  title        = {jamielaw-smith/STARS\_library v1.0.0},
-  month        = sep,
+  title        = {jamielaw-smith/STARS\_library v1.0.5},
+  month        = oct,
   year         = 2020,
   publisher    = {Zenodo},
-  version      = {v1.0.0},
-  doi          = {10.5281/zenodo.4048880},
-  url          = {https://doi.org/10.5281/zenodo.4048880}
+  version      = {v1.0.5},
+  doi          = {10.5281/zenodo.4062018},
+  url          = {https://doi.org/10.5281/zenodo.4062018}
 }
 ```
 
