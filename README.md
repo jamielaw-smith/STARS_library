@@ -135,7 +135,7 @@ archivePrefix = {arXiv},
 }
 ```
 
-(2) the DOI for this tool: https://doi.org/10.5281/zenodo.4048880. Here is the BibTex entry:
+(2) the DOI for this tool: http://doi.org/10.5281/zenodo.4062018. Here is the BibTex entry:
 
 ```
 @misc{jamie_a_p_law_smith_2020_4062018,
