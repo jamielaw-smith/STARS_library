@@ -138,17 +138,17 @@ archivePrefix = {arXiv},
 (2) this tool: https://ui.adsabs.harvard.edu/abs/2020zndo...4062018L/abstract. Here is the BibTex entry:
 
 ```
-@misc{jamie_a_p_law_smith_2020_4062018,
-  author       = {Jamie A.P. Law-Smith and
-                  David A. Coulter and
-                  Brenna Mockler},
-  title        = {jamielaw-smith/STARS\_library v1.0.5},
-  month        = oct,
-  year         = 2020,
-  publisher    = {Zenodo},
-  version      = {v1.0.5},
-  doi          = {10.5281/zenodo.4062018},
-  url          = {https://doi.org/10.5281/zenodo.4062018}
+@MISC{2020zndo...4062018L,
+       author = {{Law-Smith}, Jamie A.~P. and {Coulter}, David A. and {Mockler}, Brenna},
+        title = "{jamielaw-smith/STARS\_library v1.0.5}",
+         year = 2020,
+        month = oct,
+          eid = {10.5281/zenodo.4062018},
+          doi = {10.5281/zenodo.4062018},
+      version = {v1.0.5},
+    publisher = {Zenodo},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2020zndo...4062018L},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
 }
 ```
 
