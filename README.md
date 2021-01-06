@@ -114,28 +114,30 @@ $t \propto M_\star^{-1} R_\star^{3/2}$.
 ## Reference
 Please see the paper for much more detail on the simulations and results. Please cite both 
 
-(1) the paper: https://ui.adsabs.harvard.edu/abs/2020arXiv200710996L. Here is the BibTex entry:
+(1) the paper: https://ui.adsabs.harvard.edu/abs/2020ApJ...905..141L. Here is the BibTex entry:
 
 ```
-@ARTICLE{lawsmith2020a,
-       author = {{Law-Smith}, Jamie A.~P. and {Coulter}, David A. and
-         {Guillochon}, James and {Mockler}, Brenna and {Ramirez-Ruiz}, Enrico},
-        title = "{Stellar TDEs with Abundances and Realistic Structures (STARS): Library of Fallback Rates}",
-      journal = {arXiv e-prints},
-     keywords = {Astrophysics - High Energy Astrophysical Phenomena},
+@ARTICLE{2020ApJ...905..141L,
+       author = {{Law-Smith}, Jamie A.~P. and {Coulter}, David A. and {Guillochon}, James and {Mockler}, Brenna and {Ramirez-Ruiz}, Enrico},
+        title = "{Stellar Tidal Disruption Events with Abundances and Realistic Structures (STARS): Library of Fallback Rates}",
+      journal = {\apj},
+     keywords = {Black hole physics, Active galaxies, Galaxy nuclei, Gravitation, Hydrodynamics, Main sequence stars, Tidal disruption, 159, 17, 609, 661, 1963, 1000, 1696, Astrophysics - High Energy Astrophysical Phenomena},
          year = 2020,
-        month = jul,
-          eid = {arXiv:2007.10996},
-        pages = {arXiv:2007.10996},
+        month = dec,
+       volume = {905},
+       number = {2},
+          eid = {141},
+        pages = {141},
+          doi = {10.3847/1538-4357/abc489},
 archivePrefix = {arXiv},
        eprint = {2007.10996},
  primaryClass = {astro-ph.HE},
-       adsurl = {https://ui.adsabs.harvard.edu/abs/2020arXiv200710996L},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2020ApJ...905..141L},
       adsnote = {Provided by the SAO/NASA Astrophysics Data System}
 }
 ```
 
-(2) this tool: https://ui.adsabs.harvard.edu/abs/2020zndo...4062018L/abstract. Here is the BibTex entry:
+(2) this tool: https://ui.adsabs.harvard.edu/abs/2020zndo...4062018L. Here is the BibTex entry:
 
 ```
 @MISC{2020zndo...4062018L,
